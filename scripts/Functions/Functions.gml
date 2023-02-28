@@ -18,3 +18,8 @@ function approach(value,target_value,spd){
 	}
 	return value;
 }
+
+//Print
+function print(msg="") {
+	show_debug_message(string(msg))
+}
