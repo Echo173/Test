@@ -100,6 +100,13 @@ if (xspd != 0)
 {
 	if (place_meeting(x + xspd,y,obj_collision))
 	{
+		//Round xspd
+		if (xspd > 0) {
+			x = floor(x)
+		} else {
+			x = ceil(x)
+		}
+		
 		while (!place_meeting(x + sign(xspd),y,obj_collision))
 		{
 			x += sign(xspd)	
@@ -124,6 +131,13 @@ if (yspd != 0)
 {
 	if (place_meeting(x,y + yspd,obj_collision))
 	{
+		//Round yspd
+		if (yspd > 0) {
+			y = floor(y)
+		} else {
+			y = ceil(y)
+		}
+		
 		while (!place_meeting(x,y + sign(yspd),obj_collision))
 		{
 			y += sign(yspd)	

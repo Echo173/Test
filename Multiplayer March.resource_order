@@ -15,7 +15,7 @@
     {"name":"Notes","order":13,"path":"folders/Notes.yy",},
     {"name":"Extensions","order":14,"path":"folders/Extensions.yy",},
     {"name":"Arena","order":1,"path":"folders/Sprites/Arena.yy",},
-    {"name":"Arena","order":2,"path":"folders/Objects/Arena.yy",},
+    {"name":"Arena","order":3,"path":"folders/Objects/Arena.yy",},
   ],
   "ResourceOrderSettings": [
     {"name":"obj_collision_half","order":2,"path":"objects/obj_collision_half/obj_collision_half.yy",},
@@ -24,7 +24,8 @@
     {"name":"spr_player_low_air","order":2,"path":"sprites/spr_player_low_air/spr_player_low_air.yy",},
     {"name":"spr_player_air","order":3,"path":"sprites/spr_player_air/spr_player_air.yy",},
     {"name":"spr_collision_full","order":1,"path":"sprites/spr_collision_full/spr_collision_full.yy",},
-    {"name":"obj_player","order":1,"path":"objects/obj_player/obj_player.yy",},
+    {"name":"obj_player","order":2,"path":"objects/obj_player/obj_player.yy",},
+    {"name":"obj_camera","order":1,"path":"objects/obj_camera/obj_camera.yy",},
     {"name":"spr_collision_half","order":2,"path":"sprites/spr_collision_half/spr_collision_half.yy",},
   ],
 }
