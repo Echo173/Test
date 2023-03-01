@@ -9,7 +9,7 @@ state_change_timer = 0
 
 xspd = 0
 yspd = 0
-max_spd = 5
+max_spd = 9
 
 aim_dir = 0
 fric = 0

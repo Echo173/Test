@@ -2,16 +2,13 @@
 var cam_spd = 5
 
 var dir = point_direction(x,y,mouse_x,mouse_y)
-var rad = 8
+var rad = 32
 var m = 1
 
 if (instance_exists(target))
 {
 	var goto_x = target.x + (lengthdir_x(min(rad,point_distance(x,y,mouse_x,mouse_y)), dir) * m)
 	var goto_y = target.y + (lengthdir_y(min(rad,point_distance(x,y,mouse_x,mouse_y)), dir) * m)
-	
-	travel_spd = point_distance(x,y,x + (goto_x - x)/cam_spd, y + (goto_y - y)/cam_spd)
-	travel_dir = point_direction(x,y,x + (goto_x - x)/cam_spd, y + (goto_y - y)/cam_spd)
 	
 	x += (goto_x - x)/cam_spd
 	y += (goto_y - y)/cam_spd

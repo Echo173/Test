@@ -1,8 +1,5 @@
 target = obj_player
 
-travel_spd = 0
-travel_dir = 0
-
 surface_resize(application_surface,1920,1080)
 display_set_gui_size(480,270)
 

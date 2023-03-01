@@ -1,18 +1,17 @@
 //Player Inputs
 key_thrust = mouse_check_button(mb_left)
 
-
 ///Aim the Player -------------------------------------------------------------------------------
 //Get the direction of the mouse
 goto_dir = point_direction(x,y,mouse_x,mouse_y)
 
 //Rotate the player towards the mouse (rotation speed is slower the faster the player is moving)
 var avg_spd = max(abs(xspd),abs(yspd))
-aim_dir += angle_difference(goto_dir,aim_dir)/(20 - (15 * (1 - (avg_spd/max_spd))))
+aim_dir += angle_difference(goto_dir,aim_dir)/(15 - (12 * (1 - (avg_spd/max_spd))))
 
 ///Apply Thrust ----------------------------------------------------------------------------------------
 //Set thrust (could be changed with power ups)
-thrust = 0.25
+thrust = max_spd/25
 if (key_thrust)
 {
 	//Play thrust sound effect (no sfx yet)
@@ -29,16 +28,13 @@ else
 }
 
 //Set Friction 
-var extra_fric = 0
-if (!key_thrust) && (avg_spd < 3) {
+//var extra_fric = 0
+//if (!key_thrust) && (avg_spd < 3) {
 	
-	//Glide for a longer time at when you're about to touch back down onto the ground
-	extra_fric = (3 - avg_spd)/15
-}
-fric = 0.075 + extra_fric
-
-//Set max movespeed (could be changed with power ups)
-max_spd = 8
+//	//Glide for a longer time at when you're about to touch back down onto the ground
+//	extra_fric = (3 - avg_spd)/15
+//}
+fric = 0.075// + extra_fric
 
 //Set movement vars relative to the direction the player is currently moving (mdir)
 var mdir = point_direction(0,0,xspd,yspd)
@@ -87,7 +83,6 @@ if (avg_spd > 3) {
 	sprite_index = spr_player_air
 	state_change_timer = 0
 	
-	land_fx_init = 0
 	land_init = 0
 }
 
@@ -116,11 +111,11 @@ if (xspd != 0)
 		if (state = STATE.AIR) && (avg_spd >= stun_min_spd)
 		{
 			//Need to Stun the player here
-			xspd *= -1
+			xspd *= -0.75
 		}
 		else
 		{
-			xspd *= -1			
+			xspd *= -0.75			
 		}
 	}
 }
@@ -147,11 +142,11 @@ if (yspd != 0)
 		if (state = STATE.AIR) && (avg_spd >= stun_min_spd)
 		{
 			//Need to Stun the player here
-			yspd *= -1
+			yspd *= -0.75
 		}
 		else
 		{
-			yspd *= -1			
+			yspd *= -0.75			
 		}
 	}
 }
