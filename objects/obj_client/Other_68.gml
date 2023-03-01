@@ -50,6 +50,7 @@ switch(async_load[? "type"])
 					obj_chat.chat("[yellow]uuid: [orange]" + string(CLIENT_MAP[? "uuid"]))
 					obj_chat.chat("[yellow]username: [orange]" + string(CLIENT_MAP[? "username"]))
 					obj_chat.chat("[white]press [purple]F1[white] to change username")
+					obj_chat.chat("[white]press [purple]F2[white] to create lobby")
 				}
 			break
 			
@@ -58,11 +59,40 @@ switch(async_load[? "type"])
 				
 				if successful {
 					CLIENT_MAP[? "username"] = buffer_read(buff, buffer_string)	
-					obj_chat.chat("[green]username changed successfully")
+					obj_chat.chat("[lime]username changed successfully")
 				} else {
 					var error_code = buffer_read(buff, buffer_u8)
 					obj_chat.chat("[red]"+string(ERROR_MAP[? "change_username"][error_code]))
 				}
+			break
+			
+			case 3: // Create lobby
+				var successful = buffer_read(buff, buffer_bool)
+				
+				if successful {
+					LOBBY_MAP[? "host"] = true
+					obj_chat.chat("[lime]lobby created successfully")
+				} else {
+					var error_code = buffer_read(buff, buffer_u8)
+					obj_chat.chat("[red]"+string(ERROR_MAP[? "create_lobby"][error_code]))
+				}
+			break
+			
+			case 4: // Lobby update
+				var lobby_data = json_parse(buffer_read(buff, buffer_string))
+				LOBBY_MAP[? "id"]			= lobby_data.id
+				LOBBY_MAP[? "name"]			= lobby_data.name
+				LOBBY_MAP[? "private"]		= lobby_data.private
+				LOBBY_MAP[? "cur_players"]	= lobby_data.players_count
+				LOBBY_MAP[? "max_players"]	= lobby_data.max_players
+				LOBBY_MAP[? "in_game"]		= lobby_data.status
+				
+				var player_data = json_parse(lobby_data.players)
+				for(var i=0;i<array_length(player_data);i++) {
+					lobby_players[i] = player_data[i]
+				}
+				
+				obj_chat.chat("[yellow]Lobby id: [white]"+string(LOBBY_MAP[? "id"]))
 			break
 		}
 	break

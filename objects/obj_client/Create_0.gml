@@ -24,9 +24,10 @@ INSTRUCTION_MAP = ds_map_create()
 ds_map_add(INSTRUCTION_MAP, "ping",					0)
 ds_map_add(INSTRUCTION_MAP, "client_info",			1)
 ds_map_add(INSTRUCTION_MAP, "change_username",		2)
+ds_map_add(INSTRUCTION_MAP, "create_lobby",			3)
 
 LOBBY_MAP = ds_map_create()
-ds_map_add(LOBBY_MAP, "id",							noone)
+ds_map_add(LOBBY_MAP, "id",							"")
 ds_map_add(LOBBY_MAP, "name",						"")
 ds_map_add(LOBBY_MAP, "host",					    false)
 ds_map_add(LOBBY_MAP, "private",					false)
@@ -36,6 +37,7 @@ ds_map_add(LOBBY_MAP, "in_game",					false)
 
 ERROR_MAP = ds_map_create()
 ds_map_add(ERROR_MAP, "change_username",			["Username include special characters", "Username length is invalid", "Can't change username in lobby"])
+ds_map_add(ERROR_MAP, "create_lobby",               ["Name include special characters", "Name length is invalid", "Password length is invalid", "Can't create new lobby inside lobby"])
 
 // ----- Timers -----
 
@@ -88,6 +90,14 @@ function change_username(username="") {
 	var buff = buffer_create(1, buffer_grow, 1)
 	buffer_write(buff, buffer_u8, INSTRUCTION_MAP[? "change_username"])
 	buffer_write(buff, buffer_string, username)
+	network_send_raw(sock, buff, buffer_get_size(buff))
+}
+
+function create_lobby(name="", password="") {
+	var buff = buffer_create(1, buffer_grow, 1)
+	buffer_write(buff, buffer_u8, INSTRUCTION_MAP[? "create_lobby"])
+	buffer_write(buff, buffer_string, name)
+	buffer_write(buff, buffer_string, password)
 	network_send_raw(sock, buff, buffer_get_size(buff))
 }
 
