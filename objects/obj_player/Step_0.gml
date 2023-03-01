@@ -2,6 +2,12 @@
 key_thrust = mouse_check_button(mb_left)
 key_shoot = mouse_check_button(mb_right) || keyboard_check(vk_space)
 
+//MoveStun
+if (move_stun_timer > 0) {
+	key_thrust = 0
+}
+move_stun_timer -= 1
+
 ///Aim the Player -------------------------------------------------------------------------------
 //Get the direction of the mouse
 goto_dir = point_direction(x,y,mouse_x,mouse_y)
@@ -61,70 +67,80 @@ var min_spd = 0.8
 if (key_thrust) min_spd = -1
 
 if (avg_spd < min_spd) {
-	state = STATE.GROUND
-	sprite_index = spr_player_ground
+	animstate = ANIMSTATE.GROUND
 }
 if (avg_spd >= min_spd) {
 	land_init = 0
-	if (state = STATE.AIR)
+	if (animstate = ANIMSTATE.AIR)
 	{
-		state_change_timer += 1
-		if (state_change_timer > 10)
+		animstate_change_timer += 1
+		if (animstate_change_timer > 10)
 		{
-			sprite_index = spr_player_low_air
+			animstate = ANIMSTATE.LOW_AIR
 		}
 	}
 	else
 	{
-		sprite_index = spr_player_low_air
+		animstate = ANIMSTATE.LOW_AIR
 	}
 }
 if (avg_spd > 3) {
-	state = STATE.AIR
-	sprite_index = spr_player_air
-	state_change_timer = 0
+	animstate = ANIMSTATE.AIR
+	animstate_change_timer = 0
 	
 	land_init = 0
 }
 
-//Shoot ----------------------------------------------------------------------------------------------
-if (bullet_cooldown_timer <= 0) {
-	if (key_shoot) {
-		bullet_cooldown_timer = bullet_cooldown
-		
-		var _buffer_length = 12
-		var _b = instance_create_layer(x + lengthdir_x(_buffer_length, aim_dir), y + lengthdir_y(_buffer_length, aim_dir), "Bullets", obj_bullet)
-		_b.xspd = xspd + lengthdir_x(bullet_speed, aim_dir)
-		_b.yspd = yspd + lengthdir_y(bullet_speed, aim_dir)
-		_b.image_angle = point_direction(0,0,_b.xspd,_b.yspd)
+//Set Sprites
+switch (animstate) {
+	case ANIMSTATE.GROUND:
+		sprite_index = spr_player_ground
+		break;
+	case ANIMSTATE.LOW_AIR:
+		sprite_index = spr_player_low_air	
+		break;
+	case ANIMSTATE.AIR:
+		sprite_index = spr_player_air	
+		break;
+}
+
+//FX -----------------------------------------------------------------------------------------
+//Trail Effects
+if (key_thrust)
+{
+	for (var ii = 0; ii < 1 + floor(avg_spd/6); ii += 1) {
+		xx = x - lengthdir_x(6,aim_dir) + lengthdir_x(4 * ii,mdir)
+		yy = y - lengthdir_y(6,aim_dir) + lengthdir_y(4 * ii,mdir)
+	
+		t = instance_create_layer(xx,yy,"AirFX",obj_player_thrust_fx)
+		t.dir = mdir
+		t.spd = avg_spd/4
+		t.image_angle = mdir
 	}
 }
-bullet_cooldown_timer -= 1
 
 ///Collisions -----------------------------------------------------------------------------------------
-//Set the minimum speed that will cause the player to be stunned if they collide with a wall
-var stun_min_spd = 4
+//Set the stun amount
+var stun_duration = 45 * (avg_spd/max_spd)
 
 //X Collision
 if (xspd != 0)
 {
 	if (place_meeting(x + xspd,y,obj_collision))
 	{
+		if (xspd > 0) {
+			x = floor(x)
+		} else {
+			x = ceil(x)
+		}
+		
 		while (!place_meeting(x + sign(xspd),y,obj_collision))
 		{
 			x += sign(xspd)	
 		}
 		
-		//Check to see if the player should be stunned after hitting a wall
-		if (state = STATE.AIR) && (avg_spd >= stun_min_spd)
-		{
-			//Need to Stun the player here
-			xspd *= -0.75
-		}
-		else
-		{
-			xspd *= -0.75			
-		}
+		xspd *= -0.75
+		move_stun_timer = stun_duration
 	}
 }
 x += xspd
@@ -134,21 +150,43 @@ if (yspd != 0)
 {
 	if (place_meeting(x,y + yspd,obj_collision))
 	{
+		if (yspd > 0) {
+			y = floor(y)
+		} else {
+			y = ceil(y)
+		}
+		
 		while (!place_meeting(x,y + sign(yspd),obj_collision))
 		{
 			y += sign(yspd)	
 		}
 		
-		//Check to see if the player should be stunned after hitting a wall
-		if (state = STATE.AIR) && (avg_spd >= stun_min_spd)
-		{
-			//Need to Stun the player here
-			yspd *= -0.75
-		}
-		else
-		{
-			yspd *= -0.75			
-		}
+		yspd *= -0.75
+		move_stun_timer = stun_duration
 	}
 }
 y += yspd
+
+//Shoot ----------------------------------------------------------------------------------------------
+if (bullet_cooldown_timer <= 0) {
+	if (key_shoot) {
+		bullet_cooldown_timer = bullet_cooldown
+		
+		var _buffer_length = 16
+		var _b = instance_create_layer(x + lengthdir_x(_buffer_length, aim_dir), y + lengthdir_y(_buffer_length, aim_dir), "Bullets", obj_bullet)
+		
+		var _xs = lengthdir_x(bullet_speed,aim_dir)
+		var _ys = lengthdir_y(bullet_speed,aim_dir)
+		
+		_b.spd = point_distance(0,0,_xs + xspd, _ys + yspd)
+		_b.dir = aim_dir
+		_b.timer = bullet_range/bullet_speed
+		
+		_b.bullet_color = player_color
+		
+		_b.owner = id
+		
+		_b.image_angle = _b.dir
+	}
+}
+bullet_cooldown_timer -= 1

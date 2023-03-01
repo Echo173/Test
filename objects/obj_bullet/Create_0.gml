@@ -1,10 +1,13 @@
-//Init Physics Vars
-xspd = 0
-yspd = 0
+//Game vars
+owner = noone
+can_deal_damage = true
+end_init = 0
 
-fric = 0.25
-timer = 60
+//Init Movement Vars
+spd = 0
+dir = 0
 
-max_spd = -1
+timer = 0
 
-image_speed = 0
+//Graphics
+bullet_color = c_black
