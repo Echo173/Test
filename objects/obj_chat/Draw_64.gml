@@ -2,24 +2,23 @@ draw_set_font(chat_font)
 
 // Calculate chat height for background
 var lines = 0
+var line_height = string_height("|")
 for(var i=0;i<ds_list_size(CHAT_LIST);i++) {
 	var text = ds_list_find_value(CHAT_LIST, i)[0]
 	var line_length = 0
 	for(var j=0;j<array_length(text);j++) {
 		line_length += string_width(text[j][1])
 	}
-	print(line_length)
 	lines += 1 + floor(line_length div chat_width)
 }
 
 // Draw chat background
 draw_set_color(c_black)
 draw_set_alpha(0.2)
-draw_rectangle(x, y, x + chat_width, y + (string_height("|")*lines), false)
+draw_rectangle(x, y, x + chat_width, y + (line_height*lines), false)
 
 // Draw chat messages
 var lines = 0
-var line_height = string_height("|")
 for(var i=0;i<ds_list_size(CHAT_LIST);i++) {
 	var text = ds_list_find_value(CHAT_LIST, i)[0]
 	var time = ds_list_find_value(CHAT_LIST, i)[1]
