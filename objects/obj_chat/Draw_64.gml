@@ -31,7 +31,7 @@ for(var i=0;i<ds_list_size(CHAT_LIST);i++) {
 	}
 	var line_length = 0
 	for(var j=0;j<array_length(text);j++) {
-		draw_set_color(text[j][0])
+		draw_set_color((text[j][0] != 90) ? text[j][0] : make_color_hsv(crazy_color, 255, 255))
 		var msg = text[j][1]
 		for(var k=1;k<string_length(msg)+1;k++) {
 			var char = string_char_at(msg, k)
@@ -44,6 +44,10 @@ for(var i=0;i<ds_list_size(CHAT_LIST);i++) {
 		}
 	}
 	lines++
+}
+crazy_color++
+if crazy_color == 256 {
+	crazy_color = 0	
 }
 draw_set_alpha(1)
 draw_set_font(fnt_default)
