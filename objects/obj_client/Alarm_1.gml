@@ -9,11 +9,13 @@ if connection != CONNECTION_MAP[? "disconnected"] {
 	connection = CONNECTION_MAP[? "connection lost"]
 
 	// Set in_lobby to false
-	in_lobby = false
+	// in_lobby = false
 	
 	// Set host to false
-	LOBBY_DATA[? "host"] = false
+	// LOBBY_DATA[? "host"] = false
 
 	// Destroy socket
-	network_destroy(socket)
+	network_destroy(sock)
+	
+	obj_chat.chat("[yellow]connection lost")
 }

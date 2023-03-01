@@ -23,13 +23,24 @@ ds_map_add(CONNECTION_MAP, "disconnected",			4)
 INSTRUCTION_MAP = ds_map_create()
 ds_map_add(INSTRUCTION_MAP, "ping",					0)
 ds_map_add(INSTRUCTION_MAP, "client_info",			1)
+ds_map_add(INSTRUCTION_MAP, "change_username",		2)
+
+LOBBY_MAP = ds_map_create()
+ds_map_add(LOBBY_MAP, "id",							noone)
+ds_map_add(LOBBY_MAP, "name",						"")
+ds_map_add(LOBBY_MAP, "host",					    false)
+ds_map_add(LOBBY_MAP, "private",					false)
+ds_map_add(LOBBY_MAP, "cur_players",				noone)
+ds_map_add(LOBBY_MAP, "max_players",				noone)
+ds_map_add(LOBBY_MAP, "in_game",					false)
+
+ERROR_MAP = ds_map_create()
+ds_map_add(ERROR_MAP, "change_username",			["Username include special characters", "Username length is invalid", "Can't change username in lobby"])
 
 // ----- Timers -----
 
 __refresh_ping_time		= 5         	// Time to refresh ping to server (in seconds)
 __current_ping_time		= 0				// Current calculated ping time
-__connect_tries			= 5				// The amount of max connection retries connection to server
-__current_tries			= 0				// Current retry attempts
 __packet_timeout		= 20        	// Timer for calculating timeout
 
 // ----- Functions -----
@@ -73,8 +84,12 @@ function refresh_server_ping() {
 	alarm[1] = __packet_timeout * room_speed
 }
 
+function change_username(username="") {
+	var buff = buffer_create(1, buffer_grow, 1)
+	buffer_write(buff, buffer_u8, INSTRUCTION_MAP[? "change_username"])
+	buffer_write(buff, buffer_string, username)
+	network_send_raw(sock, buff, buffer_get_size(buff))
+}
+
 // Connect to server
 connect()
-
-// Debug
-debug = true

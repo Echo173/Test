@@ -18,6 +18,8 @@ switch(async_load[? "type"])
 			
 				// Reset ping timer
 				alarm[0] = __refresh_ping_time * room_speed
+				
+				obj_chat.chat("[yellow]ping: [white]" + string(CLIENT_MAP[? "ping"]) + "ms")
 			break
 			
 			case 1: // Client info
@@ -41,8 +43,25 @@ switch(async_load[? "type"])
 						alarm[0] = 1
 					} else {
 						// Disconnect
-						disconnect()	
+						disconnect()
 					}
+					
+					obj_chat.chat("[yellow]connected")
+					obj_chat.chat("[yellow]uuid: [orange]" + string(CLIENT_MAP[? "uuid"]))
+					obj_chat.chat("[yellow]username: [orange]" + string(CLIENT_MAP[? "username"]))
+					obj_chat.chat("[purple]press F1 to change username")
+				}
+			break
+			
+			case 2: // Change username
+				var successful = buffer_read(buff, buffer_bool)
+				
+				if successful {
+					CLIENT_MAP[? "username"] = buffer_read(buff, buffer_string)	
+					obj_chat.chat("[green]username changed successfully")
+				} else {
+					var error_code = buffer_read(buff, buffer_u8)
+					obj_chat.chat("[red]"+string(ERROR_MAP[? "change_username"][error_code]))
 				}
 			break
 		}
