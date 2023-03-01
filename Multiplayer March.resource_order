@@ -17,6 +17,7 @@
     {"name":"Tile Sets","order":2,"path":"folders/Tile Sets.yy",},
     {"name":"Timelines","order":8,"path":"folders/Timelines.yy",},
     {"name":"Networking","order":5,"path":"folders/Objects/Networking.yy",},
+    {"name":"Bullets","order":5,"path":"folders/Sprites/Player/Bullets.yy",},
   ],
   "ResourceOrderSettings": [
     {"name":"obj_collision_half","order":2,"path":"objects/obj_collision_half/obj_collision_half.yy",},

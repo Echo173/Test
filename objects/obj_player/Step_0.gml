@@ -1,5 +1,6 @@
 //Player Inputs
 key_thrust = mouse_check_button(mb_left)
+key_shoot = mouse_check_button(mb_right) || keyboard_check(vk_space)
 
 ///Aim the Player -------------------------------------------------------------------------------
 //Get the direction of the mouse
@@ -86,6 +87,20 @@ if (avg_spd > 3) {
 	land_init = 0
 }
 
+//Shoot ----------------------------------------------------------------------------------------------
+if (bullet_cooldown_timer <= 0) {
+	if (key_shoot) {
+		bullet_cooldown_timer = bullet_cooldown
+		
+		var _buffer_length = 12
+		var _b = instance_create_layer(x + lengthdir_x(_buffer_length, aim_dir), y + lengthdir_y(_buffer_length, aim_dir), "Bullets", obj_bullet)
+		_b.xspd = xspd + lengthdir_x(bullet_speed, aim_dir)
+		_b.yspd = yspd + lengthdir_y(bullet_speed, aim_dir)
+		_b.image_angle = point_direction(0,0,_b.xspd,_b.yspd)
+	}
+}
+bullet_cooldown_timer -= 1
+
 ///Collisions -----------------------------------------------------------------------------------------
 //Set the minimum speed that will cause the player to be stunned if they collide with a wall
 var stun_min_spd = 4
@@ -95,13 +110,6 @@ if (xspd != 0)
 {
 	if (place_meeting(x + xspd,y,obj_collision))
 	{
-		//Round xspd
-		if (xspd > 0) {
-			x = floor(x)
-		} else {
-			x = ceil(x)
-		}
-		
 		while (!place_meeting(x + sign(xspd),y,obj_collision))
 		{
 			x += sign(xspd)	
@@ -126,13 +134,6 @@ if (yspd != 0)
 {
 	if (place_meeting(x,y + yspd,obj_collision))
 	{
-		//Round yspd
-		if (yspd > 0) {
-			y = floor(y)
-		} else {
-			y = ceil(y)
-		}
-		
 		while (!place_meeting(x,y + sign(yspd),obj_collision))
 		{
 			y += sign(yspd)	
