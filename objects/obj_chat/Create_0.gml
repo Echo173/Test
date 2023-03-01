@@ -3,16 +3,16 @@
 CHAT_LIST = ds_list_create()
 
 COLOR_MAP = ds_map_create()
-ds_map_add(COLOR_MAP, "white",		c_white)
-ds_map_add(COLOR_MAP, "red",		c_red)
-ds_map_add(COLOR_MAP, "green",		c_green)
-ds_map_add(COLOR_MAP, "blue",		c_blue)
-ds_map_add(COLOR_MAP, "yellow",		c_yellow)
-ds_map_add(COLOR_MAP, "orange",		c_orange)
-ds_map_add(COLOR_MAP, "black",		c_black)
-ds_map_add(COLOR_MAP, "purple",		c_purple)
-ds_map_add(COLOR_MAP, "lime",		c_lime)
-ds_map_add(COLOR_MAP, "aqua",		c_aqua)
+ds_map_add(COLOR_MAP, "white",			c_white)
+ds_map_add(COLOR_MAP, "red",			c_red)
+ds_map_add(COLOR_MAP, "green",			c_green)
+ds_map_add(COLOR_MAP, "blue",			c_blue)
+ds_map_add(COLOR_MAP, "yellow",			c_yellow)
+ds_map_add(COLOR_MAP, "orange",			c_orange)
+ds_map_add(COLOR_MAP, "black",			c_black)
+ds_map_add(COLOR_MAP, "purple",			c_purple)
+ds_map_add(COLOR_MAP, "lime",			c_lime)
+ds_map_add(COLOR_MAP, "aqua",			c_aqua)
 ds_map_add(COLOR_MAP, "crazy_color",	90)
 
 // ----- Config -----
@@ -21,7 +21,7 @@ message_time = 8								// Time to display chat message (in seconds)
 chat_width	 = 150								// Chat width in pixels
 chat_font	 = fnt_chat							// Font of chat
 x			 = 0								// X position of chat
-y			 = 0								// > position of chat
+y			 = 0								// Y position of chat
 crazy_color  = 0								// Crazy
 
 // ----- Functions -----
