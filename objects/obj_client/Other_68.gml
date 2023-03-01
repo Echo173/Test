@@ -49,7 +49,7 @@ switch(async_load[? "type"])
 					obj_chat.chat("[yellow]connected")
 					obj_chat.chat("[yellow]uuid: [orange]" + string(CLIENT_MAP[? "uuid"]))
 					obj_chat.chat("[yellow]username: [orange]" + string(CLIENT_MAP[? "username"]))
-					obj_chat.chat("[purple]press F1 to change username")
+					obj_chat.chat("[white]press [purple]F1[white] to change username")
 				}
 			break
 			
