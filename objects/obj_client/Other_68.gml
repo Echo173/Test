@@ -49,8 +49,8 @@ switch(async_load[? "type"])
 					obj_chat.chat("[yellow]connected")
 					obj_chat.chat("[yellow]uuid: [orange]" + string(CLIENT_MAP[? "uuid"]))
 					obj_chat.chat("[yellow]username: [orange]" + string(CLIENT_MAP[? "username"]))
-					obj_chat.chat("[white]press [purple]F1[white] to change username")
-					obj_chat.chat("[white]press [purple]F2[white] to create lobby")
+					obj_chat.chat("[white]press [aqua]F1[white] to change username")
+					obj_chat.chat("[white]press [aqua]F2[white] to create lobby")
 				}
 			break
 			
