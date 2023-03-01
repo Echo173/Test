@@ -2,7 +2,7 @@
 var cam_spd = 5
 
 var dir = point_direction(x,y,mouse_x,mouse_y)
-var rad = 32
+var rad = 72
 var m = 1
 
 if (instance_exists(target))

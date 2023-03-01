@@ -10,7 +10,7 @@ animstate_change_timer = 0
 
 xspd = 0
 yspd = 0
-max_spd = 9
+max_spd = 6
 
 aim_dir = 0
 fric = 0
@@ -20,10 +20,10 @@ move_stun_timer = 0
 
 //Stats
 bullet_speed = 6
-bullet_range = 64
+bullet_range = 80
 
 bullet_cooldown = 12
 bullet_cooldown_timer = 0
 
 //Graphics
-player_color = make_color_rgb(207, 39, 27)
+player_color = make_color_rgb(240, 40, 10)
