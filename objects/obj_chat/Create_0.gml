@@ -11,8 +11,8 @@ ds_map_add(COLOR_MAP, "yellow",			c_yellow)
 ds_map_add(COLOR_MAP, "orange",			c_orange)
 ds_map_add(COLOR_MAP, "black",			c_black)
 ds_map_add(COLOR_MAP, "purple",			c_purple)
-ds_map_add(COLOR_MAP, "lime",			c_lime)
 ds_map_add(COLOR_MAP, "aqua",			c_aqua)
+ds_map_add(COLOR_MAP, "lime",			c_lime)
 ds_map_add(COLOR_MAP, "crazy_color",	90)
 
 // ----- Config -----
