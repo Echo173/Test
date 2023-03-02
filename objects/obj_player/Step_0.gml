@@ -16,7 +16,7 @@ check_for_damage_collision();
 goto_dir = point_direction(x,y,mouse_x,mouse_y)
 
 //Rotate the player towards the mouse (rotation speed is slower the faster the player is moving)
-var avg_spd = max(abs(xspd),abs(yspd))
+avg_spd = max(abs(xspd),abs(yspd))
 aim_dir += angle_difference(goto_dir,aim_dir)/(15 - (12 * (1 - (avg_spd/max_spd))))
 
 ///Apply Thrust ----------------------------------------------------------------------------------------
@@ -87,7 +87,7 @@ if (avg_spd >= min_spd) {
 		animstate = ANIMSTATE.LOW_AIR
 	}
 }
-if (avg_spd > 3) {
+if (avg_spd > max_spd/4) {
 	animstate = ANIMSTATE.AIR
 	animstate_change_timer = 0
 	
@@ -111,9 +111,9 @@ switch (animstate) {
 //Trail Effects
 if (key_thrust)
 {
-	for (var ii = 0; ii < 1 + floor(avg_spd/6); ii += 1) {
-		xx = x - lengthdir_x(6,aim_dir) + lengthdir_x(4 * ii,mdir)
-		yy = y - lengthdir_y(6,aim_dir) + lengthdir_y(4 * ii,mdir)
+	for (var ii = 0; ii < 1 + floor(avg_spd/24); ii += 1) {
+		xx = x - lengthdir_x(24,aim_dir) + lengthdir_x(16 * ii,mdir)
+		yy = y - lengthdir_y(24,aim_dir) + lengthdir_y(16 * ii,mdir)
 	
 		t = instance_create_layer(xx,yy,"BottomFX",obj_player_thrust_fx)
 		t.dir = mdir
