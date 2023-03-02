@@ -112,7 +112,7 @@ if (key_thrust)
 		xx = x - lengthdir_x(6,aim_dir) + lengthdir_x(4 * ii,mdir)
 		yy = y - lengthdir_y(6,aim_dir) + lengthdir_y(4 * ii,mdir)
 	
-		t = instance_create_layer(xx,yy,"AirFX",obj_player_thrust_fx)
+		t = instance_create_layer(xx,yy,"BottomFX",obj_player_thrust_fx)
 		t.dir = mdir
 		t.spd = avg_spd/4
 		t.image_angle = mdir
@@ -122,6 +122,7 @@ if (key_thrust)
 ///Collisions -----------------------------------------------------------------------------------------
 //Set the stun amount
 var stun_duration = 45 * (avg_spd/max_spd)
+var _shake_mag = 4 * (avg_spd/max_spd)
 
 //X Collision
 if (xspd != 0)
@@ -141,6 +142,7 @@ if (xspd != 0)
 		
 		xspd *= -0.75
 		move_stun_timer = stun_duration
+		camera_shake(_shake_mag, _shake_mag/15, -1)
 	}
 }
 x += xspd
@@ -163,30 +165,44 @@ if (yspd != 0)
 		
 		yspd *= -0.75
 		move_stun_timer = stun_duration
+		camera_shake(_shake_mag, _shake_mag/15, -1)
 	}
 }
 y += yspd
 
 //Shoot ----------------------------------------------------------------------------------------------
 if (bullet_cooldown_timer <= 0) {
-	if (key_shoot) {
-		bullet_cooldown_timer = bullet_cooldown
+	if (mana > mana_cost) {
+		if (key_shoot) {
+			bullet_cooldown_timer = bullet_cooldown
 		
-		var _buffer_length = 16
-		var _b = instance_create_layer(x + lengthdir_x(_buffer_length, aim_dir), y + lengthdir_y(_buffer_length, aim_dir), "Bullets", obj_bullet)
+			mana -= mana_cost
 		
-		var _xs = lengthdir_x(bullet_speed,aim_dir)
-		var _ys = lengthdir_y(bullet_speed,aim_dir)
+			var _buffer_length = 16
+			var _b = instance_create_layer(x + lengthdir_x(_buffer_length, aim_dir), y + lengthdir_y(_buffer_length, aim_dir), "Bullets", obj_bullet)
 		
-		_b.spd = point_distance(0,0,_xs + xspd, _ys + yspd)
-		_b.dir = aim_dir
-		_b.timer = bullet_range/bullet_speed
+			var _xs = lengthdir_x(bullet_speed,aim_dir)
+			var _ys = lengthdir_y(bullet_speed,aim_dir)
 		
-		_b.bullet_color = player_color
+			_b.spd = point_distance(0,0,_xs + xspd, _ys + yspd)
+			_b.dir = aim_dir
+			_b.timer = bullet_range/bullet_speed
 		
-		_b.owner = id
+			_b.bullet_color = player_color
 		
-		_b.image_angle = _b.dir
+			_b.owner = id
+		
+			_b.image_angle = _b.dir
+		}
+		else
+		{
+			mana += mana_recharge
+		}
 	}
+	else
+	{
+		mana += mana_recharge
+	}
+	mana = min(mana,mana_max)
 }
 bullet_cooldown_timer -= 1
