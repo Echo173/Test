@@ -44,7 +44,7 @@ else
 //	//Glide for a longer time at when you're about to touch back down onto the ground
 //	extra_fric = (3 - avg_spd)/15
 //}
-fric = 0.075// + extra_fric
+//fric = 0.075 + extra_fric
 
 //Set movement vars relative to the direction the player is currently moving (mdir)
 var mdir = point_direction(0,0,xspd,yspd)
@@ -125,7 +125,7 @@ if (key_thrust)
 ///Collisions -----------------------------------------------------------------------------------------
 //Set the stun amount
 var stun_duration = 45 * (avg_spd/max_spd)
-var _shake_mag = 4 * (avg_spd/max_spd)
+var _shake_mag = 16 * (avg_spd/max_spd)
 
 //X Collision
 if (xspd != 0)
@@ -181,7 +181,7 @@ if (bullet_cooldown_timer <= 0) {
 		
 			mana -= mana_cost
 		
-			var _buffer_length = 16
+			var _buffer_length = 64
 			var _b = instance_create_layer(x + lengthdir_x(_buffer_length, aim_dir), y + lengthdir_y(_buffer_length, aim_dir), "Bullets", obj_bullet)
 		
 			var _xs = lengthdir_x(bullet_speed,aim_dir)

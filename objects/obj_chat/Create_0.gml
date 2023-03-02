@@ -18,7 +18,7 @@ ds_map_add(COLOR_MAP, "crazy_color",	90)
 // ----- Config -----
 
 message_time = 8								// Time to display chat message (in seconds)
-chat_width	 = 150								// Chat width in pixels
+chat_width	 = 480								// Chat width in pixels
 chat_font	 = fnt_chat							// Font of chat
 x			 = 0								// X position of chat
 y			 = 0								// Y position of chat

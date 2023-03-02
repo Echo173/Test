@@ -37,7 +37,7 @@
   "IncludedFiles": [],
   "isEcma": false,
   "MetaData": {
-    "IDEVersion": "2023.1.1.62",
+    "IDEVersion": "2023.1.0.58",
   },
   "resources": [
     {"id":{"name":"obj_collision_half","path":"objects/obj_collision_half/obj_collision_half.yy",},"order":2,},
@@ -66,6 +66,7 @@
     {"id":{"name":"spr_player_collision","path":"sprites/spr_player_collision/spr_player_collision.yy",},"order":0,},
     {"id":{"name":"spr_bullet_outline","path":"sprites/spr_bullet_outline/spr_bullet_outline.yy",},"order":0,},
     {"id":{"name":"spr_player_thrust_fx","path":"sprites/spr_player_thrust_fx/spr_player_thrust_fx.yy",},"order":4,},
+    {"id":{"name":"spr_bullet_collision","path":"sprites/spr_bullet_collision/spr_bullet_collision.yy",},"order":0,},
     {"id":{"name":"fnt_chat","path":"fonts/fnt_chat/fnt_chat.yy",},"order":1,},
     {"id":{"name":"obj_init","path":"objects/obj_init/obj_init.yy",},"order":0,},
     {"id":{"name":"Effects","path":"scripts/Effects/Effects.yy",},"order":1,},

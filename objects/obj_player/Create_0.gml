@@ -10,10 +10,10 @@ animstate_change_timer = 0
 
 xspd = 0
 yspd = 0
-max_spd = 6
+max_spd = 24
 
 aim_dir = 0
-fric = 0
+fric = 0.3
 
 //Systems
 move_stun_timer = 0
@@ -27,8 +27,8 @@ mana_recharge = 50/60
 mana = mana_max
 mana_cost = 10 //Total cost to cast one spell
 
-bullet_speed = 10
-bullet_range = 96
+bullet_speed = 40
+bullet_range = 420
 
 bullet_cooldown = 12
 bullet_cooldown_timer = 0
@@ -48,7 +48,7 @@ var _bar = instance_create_layer(x, y, "Bars", obj_player_bar_display)
 _bar.my_player = id
 
 //Damage Functions
-hitbox_radius = 10
+hitbox_radius = 42
 function check_for_damage_collision() {
 	if (collision_circle(x,y,hitbox_radius, obj_damage_collision, false, false)) {
 		

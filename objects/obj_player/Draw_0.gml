@@ -17,4 +17,6 @@ if (hit_flash_alpha > 0) {
 }
 
 //Draw hitbox
-//draw_circle(x,y,hitbox_radius,true)
+if (global.show_hitboxes = true) {
+	draw_circle(x,y,hitbox_radius,true)
+}

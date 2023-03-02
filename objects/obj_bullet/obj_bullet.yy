@@ -37,6 +37,9 @@
     "name": "spr_bullet_outline",
     "path": "sprites/spr_bullet_outline/spr_bullet_outline.yy",
   },
-  "spriteMaskId": null,
+  "spriteMaskId": {
+    "name": "spr_bullet_collision",
+    "path": "sprites/spr_bullet_collision/spr_bullet_collision.yy",
+  },
   "visible": true,
 }

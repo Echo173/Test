@@ -8,3 +8,9 @@ switch (sprite_index) {
 		draw_self();
 		break;
 }
+
+if (global.show_hitboxes = true) {
+	if (can_deal_damage = true) {
+		draw_sprite_ext(spr_bullet_collision,0,x,y,image_xscale,image_yscale,image_angle,c_white,0.75)
+	}
+}
