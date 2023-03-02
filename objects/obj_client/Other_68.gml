@@ -51,6 +51,8 @@ switch(async_load[? "type"])
 					obj_chat.chat("[yellow]username: [orange]" + string(CLIENT_MAP[? "username"]))
 					obj_chat.chat("[white]press [crazy_color]F1[white] to change username")
 					obj_chat.chat("[white]press [crazy_color]F2[white] to create lobby")
+					obj_chat.chat("[white]press [crazy_color]F3[white] to join lobby")
+					obj_chat.chat("[white]press [crazy_color]F4[white] to disconnect")
 				}
 			break
 			
@@ -93,6 +95,27 @@ switch(async_load[? "type"])
 				}
 				
 				obj_chat.chat("[yellow]Lobby id: [white]"+string(LOBBY_MAP[? "id"]))
+			break
+			
+			case 5: // Leave
+				var successful = buffer_read(buff, buffer_bool)
+				
+				if successful {
+					LOBBY_MAP[? "host"] = false
+				} else {
+					break
+				}
+			break
+			
+			case 6: // Join
+				var successful = buffer_read(buff, buffer_bool)
+				
+				if successful {
+					LOBBY_MAP[? "host"] = false
+				} else {
+					var error_code = buffer_read(buff, buffer_u8)
+					obj_chat.chat("[red]"+string(ERROR_MAP[? "join_lobby"][error_code]))
+				}
 			break
 		}
 	break
