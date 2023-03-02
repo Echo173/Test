@@ -8,6 +8,9 @@ if (move_stun_timer > 0) {
 }
 move_stun_timer -= 1
 
+//Take Damage
+check_for_damage_collision();
+
 ///Aim the Player -------------------------------------------------------------------------------
 //Get the direction of the mouse
 goto_dir = point_direction(x,y,mouse_x,mouse_y)

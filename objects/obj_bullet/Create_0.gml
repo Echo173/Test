@@ -3,6 +3,9 @@ owner = noone
 can_deal_damage = true
 end_init = 0
 
+//Stats
+damage = 15
+
 //Init Movement Vars
 spd = 0
 dir = 0

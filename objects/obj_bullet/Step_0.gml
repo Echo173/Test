@@ -7,7 +7,10 @@ if (timer <= 0) {
 		sprite_index = spr_bullet_end_outline
 	}
 	
-	can_deal_damage = false
+	//Turn of damage during end animation
+	if (image_index > 3) {
+		can_deal_damage = false
+	}
 	spd /= 1.15
 }
 timer -= 1
