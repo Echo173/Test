@@ -31,4 +31,4 @@ if (global.show_hitboxes = true) {
 	draw_circle(x,y,hitbox_radius,true)
 }
 
-draw_text(x,y - 128, avg_spd)
+//draw_text(x,y - 128, avg_spd)
