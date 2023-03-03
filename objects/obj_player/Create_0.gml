@@ -1,4 +1,11 @@
-//Physics
+//Inputs Vars
+key_thrust = 0
+key_shoot = 0
+
+key_dash = 0
+key_dash_buffer = 0
+
+//Physics -----------------------------------------------------------
 enum ANIMSTATE {
 	GROUND = 0,
 	LOW_AIR = 1,
@@ -10,15 +17,30 @@ animstate_change_timer = 0
 
 xspd = 0
 yspd = 0
-max_spd = 24
+avg_spd = 0
+max_spd = 20
 
 aim_dir = 0
 fric = 0.3
 
-//Systems
+//Systems -----------------------------------------------------------
+//Wall Stun
 move_stun_timer = 0
 
-//Stats
+//Dash
+dash_cooldown = 75
+dash_cooldown_timer = 0
+
+dash_thrust_duration = 3
+dash_thrust_duration_timer = 0
+
+dash_immune_duration = 15
+dash_immune_duration_timer = 0
+
+dash_thrust = max_spd/10
+dash_boost = max_spd * 1.25
+
+//Stats -----------------------------------------------------------
 hp_max = 100
 hp = hp_max
 

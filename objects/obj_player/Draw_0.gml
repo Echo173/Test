@@ -6,6 +6,11 @@ shader_reset();
 //Draw Player
 draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_angle,player_color,1)
 
+//Draw Stun
+if (move_stun_timer > 0) {
+	draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_angle,c_black,0.25)
+}
+
 //Draw hitFlash
 if (hit_flash_alpha > 0) {
 	
@@ -20,3 +25,5 @@ if (hit_flash_alpha > 0) {
 if (global.show_hitboxes = true) {
 	draw_circle(x,y,hitbox_radius,true)
 }
+
+draw_text(x,y - 128, avg_spd)

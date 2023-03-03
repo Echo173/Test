@@ -1,3 +1,14 @@
+//FULLSCREEN CONTROLLS
+if (keyboard_check_pressed(vk_f11)) {
+	if (window_get_fullscreen()) {
+		window_set_fullscreen(false)
+	}
+	else
+	{
+		window_set_fullscreen(true)
+	}
+}
+
 //Set Camera Vars
 var cam_spd = 5
 

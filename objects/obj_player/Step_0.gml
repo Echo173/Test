@@ -1,27 +1,75 @@
 //Player Inputs
 key_thrust = mouse_check_button(mb_left)
-key_shoot = mouse_check_button(mb_right) || keyboard_check(vk_space)
+key_shoot = mouse_check_button(mb_right)
+key_dash =  keyboard_check_pressed(vk_space)
 
 //MoveStun
 if (move_stun_timer > 0) {
 	key_thrust = 0
+	
+	//Buffer Dash Input
+	if (key_dash = 1) {
+		key_dash = 0
+		key_dash_buffer = 1
+	}
+}
+else
+{
+	if (key_dash_buffer = 1) {
+		key_dash_buffer = 0
+		key_dash = 1
+	}
 }
 move_stun_timer -= 1
 
-//Take Damage
-check_for_damage_collision();
+//Take Damage (only when not dashing)
+if (dash_immune_duration_timer <= 0) {
+	check_for_damage_collision();
+}
+dash_immune_duration_timer -= 1
 
-///Aim the Player -------------------------------------------------------------------------------
+///Movement -------------------------------------------------------------------------------------------
 //Get the direction of the mouse
 goto_dir = point_direction(x,y,mouse_x,mouse_y)
 
 //Rotate the player towards the mouse (rotation speed is slower the faster the player is moving)
 avg_spd = max(abs(xspd),abs(yspd))
-aim_dir += angle_difference(goto_dir,aim_dir)/(15 - (12 * (1 - (avg_spd/max_spd))))
+aim_dir += angle_difference(goto_dir,aim_dir)/(15 - (12 * ((0.6 - (avg_spd/max_spd)) + (0.4 * key_thrust))))
 
-///Apply Thrust ----------------------------------------------------------------------------------------
+//Dash -------------------------------------------------------------------------------------------
+if (key_dash) {
+	if (dash_cooldown_timer <= 0) {
+		
+		dash_cooldown_timer = dash_cooldown
+	
+		dash_immune_duration_timer = dash_immune_duration
+		dash_thrust_duration_timer = dash_thrust_duration
+	
+		xspd += lengthdir_x(dash_boost, aim_dir)
+		yspd += lengthdir_y(dash_boost, aim_dir)
+	}
+	else
+	{
+		//Buffer Dash input
+		if (dash_cooldown_timer <= 12) {
+			key_dash_buffer = 1
+		}
+	}
+}
+dash_cooldown_timer -= 1
+
+//Apply Dash Force
+if (dash_thrust_duration_timer > 0) {
+	
+	xspd += lengthdir_x(dash_thrust, aim_dir)
+	yspd += lengthdir_y(dash_thrust, aim_dir)
+}
+dash_thrust_duration_timer -= 1
+
 //Set thrust (could be changed with power ups)
 thrust = max_spd/25
+
+//Apply Thrust
 if (key_thrust)
 {
 	//Play thrust sound effect (no sfx yet)
@@ -37,29 +85,29 @@ else
 	//if (audio_is_playing(snd_jet)) audio_stop_sound(snd_jet);
 }
 
-//Set Friction 
-//var extra_fric = 0
-//if (!key_thrust) && (avg_spd < 3) {
-	
-//	//Glide for a longer time at when you're about to touch back down onto the ground
-//	extra_fric = (3 - avg_spd)/15
-//}
-//fric = 0.075 + extra_fric
-
 //Set movement vars relative to the direction the player is currently moving (mdir)
 var mdir = point_direction(0,0,xspd,yspd)
 var xfric = abs(fric * lengthdir_x(1,mdir))
 var yfric = abs(fric * lengthdir_y(1,mdir))
 var xmax = abs(max_spd * lengthdir_x(1,mdir))
 var ymax = abs(max_spd * lengthdir_y(1,mdir))
+var xmax_fric = abs(thrust * 2 * lengthdir_x(1,mdir))
+var ymax_fric = abs(thrust * 2 * lengthdir_y(1,mdir))
 
 //Apply Friction
 xspd = approach(xspd,0,xfric)
 yspd = approach(yspd,0,yfric)
 
 //Clamp player to max_spd
-xspd = clamp(xspd,-xmax, xmax)
-yspd = clamp(yspd,-ymax, ymax)
+//xspd = clamp(xspd,-xmax, xmax)
+//yspd = clamp(yspd,-ymax, ymax)
+
+//Apply extra friction when player moves faster then max spd
+if (xspd >= xmax) xspd = approach(xspd,xmax,xmax_fric)
+if (xspd <= -xmax) xspd = approach(xspd,-xmax,xmax_fric)
+
+if (yspd >= ymax) yspd = approach(yspd,ymax,ymax_fric)
+if (yspd <= -ymax) yspd = approach(yspd,-ymax,ymax_fric)
 
 ///Animation & State Update -----------------------------------------------------------------------------------------
 //Rotate the player sprite

@@ -19,5 +19,11 @@ with (my_player) {
 	var _mana_bar_width = max(0,_hp_max_bar_width * (mana/mana_max))
 	draw_sprite_ext(spr_stat_bar, 0, x - _mana_max_bar_width/2, y + _bar_offset, _mana_max_bar_width,_bar_height,0,c_white,0.5)
 	draw_sprite_ext(spr_stat_bar, 2, x - _mana_max_bar_width/2, y + _bar_offset, _mana_bar_width,_bar_height,0,c_white,1)
+	
+	//Draw Dash Cooldown
+	_bar_offset = 48
+	
+	var _dash_bar_width = _bar_width * max(0,dash_cooldown_timer/dash_cooldown)
+	draw_sprite_ext(spr_stat_bar, 3, x - _dash_bar_width/2, y + _bar_offset, _dash_bar_width,_bar_height,0,c_white,1)
 }
 
