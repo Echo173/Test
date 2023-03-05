@@ -1,5 +1,6 @@
 //Make sure surface exsists
 if (!surface_exists(shadow_surf)) {
+	show_message(1)
 	exit;
 }
 

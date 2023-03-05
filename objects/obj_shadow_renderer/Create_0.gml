@@ -1,1 +1,1 @@
-shadow_surf = 0
+shadow_surf = -1
