@@ -9,7 +9,7 @@ sh = camera_get_view_height(view_camera[0]) + buffer_size
 
 //Create Surface
 if (!surface_exists(shadow_surf)) {
-	surface_create(sw,sh);
+	shadow_surf = surface_create(sw,sh);
 }
 
 //Check to see if the su needs to be resized

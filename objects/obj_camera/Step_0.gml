@@ -19,7 +19,8 @@ var m = 1
 //Follow Target
 if (instance_exists(target))
 {
-	var _ss = 1 + (0.25 * min(1,(target.avg_spd/(target.max_spd * 0.75))))
+	var _bs = 0.35 * ((target.max_spd - 20)/20)
+	var _ss = 1 + ((0.4 + _bs) * min(1,(target.avg_spd/(target.max_spd * 0.75))))
 	view_scale_goto += (_ss - view_scale_goto)/8
 	
 	var goto_x = target.x + (lengthdir_x(min(rad,point_distance(x,y,mouse_x,mouse_y)), dir) * m)

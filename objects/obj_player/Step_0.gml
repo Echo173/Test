@@ -161,7 +161,7 @@ if (key_thrust)
 		xx = x - lengthdir_x(24,aim_dir) + lengthdir_x(16 * ii,mdir)
 		yy = y - lengthdir_y(24,aim_dir) + lengthdir_y(16 * ii,mdir)
 	
-		t = instance_create_layer(xx,yy,"BottomFX",obj_player_thrust_fx)
+		t = instance_create_layer(xx,yy,"FX_Bottom",obj_player_thrust_fx)
 		t.dir = mdir
 		t.spd = avg_spd/4
 		t.image_angle = mdir

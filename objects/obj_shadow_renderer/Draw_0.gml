@@ -1,3 +1,8 @@
+//Make sure surface exsists
+if (!surface_exists(shadow_surf)) {
+	exit;
+}
+
 //Clear Surface
 surface_set_target(shadow_surf)
 draw_clear_alpha(c_white,0)

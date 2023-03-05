@@ -89,11 +89,13 @@
     {"id":{"name":"shd_white","path":"shaders/shd_white/shd_white.yy",},"order":0,},
     {"id":{"name":"spr_player_collision","path":"sprites/spr_player_collision/spr_player_collision.yy",},"order":0,},
     {"id":{"name":"obj_chat","path":"objects/obj_chat/obj_chat.yy",},"order":1,},
+    {"id":{"name":"rm_arena_1","path":"rooms/rm_arena_1/rm_arena_1.yy",},"order":0,},
     {"id":{"name":"spr_main_menu_button_join","path":"sprites/spr_main_menu_button_join/spr_main_menu_button_join.yy",},"order":0,},
     {"id":{"name":"rm_testing","path":"rooms/rm_testing/rm_testing.yy",},"order":1,},
   ],
   "RoomOrderNodes": [
     {"roomId":{"name":"rm_init","path":"rooms/rm_init/rm_init.yy",},},
+    {"roomId":{"name":"rm_arena_1","path":"rooms/rm_arena_1/rm_arena_1.yy",},},
     {"roomId":{"name":"rm_testing","path":"rooms/rm_testing/rm_testing.yy",},},
     {"roomId":{"name":"rm_main_menu","path":"rooms/rm_main_menu/rm_main_menu.yy",},},
   ],
