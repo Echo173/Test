@@ -4,8 +4,8 @@ if (instance_position(mouse_x,mouse_y,id)) {
 	
 	//If this button is clicked
 	if (mouse_check_button_pressed(mb_left)) {
-		//[NET] Host a lobby here
-		
+		room_goto(rm_arena_1)
+		obj_client.create_lobby("Test", "")	
 	}
 }
 else

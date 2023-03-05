@@ -46,13 +46,8 @@ switch(async_load[? "type"])
 						disconnect()
 					}
 					
-					obj_chat.chat("[yellow]connected")
-					obj_chat.chat("[yellow]uuid: [orange]" + string(CLIENT_MAP[? "uuid"]))
-					obj_chat.chat("[yellow]username: [orange]" + string(CLIENT_MAP[? "username"]))
-					obj_chat.chat("[white]press [crazy_color]F1[white] to change username")
-					obj_chat.chat("[white]press [crazy_color]F2[white] to create lobby")
-					obj_chat.chat("[white]press [crazy_color]F3[white] to join lobby")
-					obj_chat.chat("[white]press [crazy_color]F4[white] to disconnect")
+					// Execute handler function
+					script_execute(WAGE_HANDLER_MAP[? "connect"])
 				}
 			break
 			
@@ -88,20 +83,49 @@ switch(async_load[? "type"])
 				LOBBY_MAP[? "cur_players"]	= lobby_data.players_count
 				LOBBY_MAP[? "max_players"]	= lobby_data.max_players
 				LOBBY_MAP[? "in_game"]		= lobby_data.status
+				LOBBY_MAP[? "host"]			= lobby_data.host
+				
+				obj_chat.chat("[yellow]ID: [white]" + string(LOBBY_MAP[? "id"]))
+				obj_chat.chat("[yellow]ID Copied to clipboard")
+				clipboard_set_text(LOBBY_MAP[? "id"])
 				
 				var player_data = json_parse(lobby_data.players)
+				lobby_users = []
+
 				for(var i=0;i<array_length(player_data);i++) {
-					lobby_players[i] = player_data[i]
+					print(player_data[i])
+					lobby_users[i] = player_data[i]
+					
+					switch(lobby_users[i].state) {
+						case "static":
+							// Noting to update
+						break
+						
+						case "join":
+							script_execute(LOBBY_HANDLER_MAP[? "join"], (CLIENT_MAP[? "uuid"] == LOBBY_MAP[? "host"]), i)
+						break	
+					
+						case "left":
+							script_execute(LOBBY_HANDLER_MAP[? "left"], (CLIENT_MAP[? "uuid"] == LOBBY_MAP[? "host"]), i)
+						break
+						
+						case "kick":
+							script_execute(LOBBY_HANDLER_MAP[? "kick"], (CLIENT_MAP[? "uuid"] == LOBBY_MAP[? "host"]), i)
+						break
+						
+						case "lost":
+							script_execute(LOBBY_HANDLER_MAP[? "lost"], (CLIENT_MAP[? "uuid"] == LOBBY_MAP[? "host"]), i)
+						break
+						
+					}
 				}
-				
-				obj_chat.chat("[yellow]Lobby id: [white]"+string(LOBBY_MAP[? "id"]))
 			break
 			
 			case 5: // Leave
 				var successful = buffer_read(buff, buffer_bool)
 				
 				if successful {
-					LOBBY_MAP[? "host"] = false
+					init_lobby_map()
 				} else {
 					break
 				}
@@ -116,6 +140,10 @@ switch(async_load[? "type"])
 					var error_code = buffer_read(buff, buffer_u8)
 					obj_chat.chat("[red]"+string(ERROR_MAP[? "join_lobby"][error_code]))
 				}
+			break
+			
+			case 11: // Data
+				
 			break
 		}
 	break

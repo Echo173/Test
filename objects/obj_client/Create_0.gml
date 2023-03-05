@@ -2,7 +2,7 @@
 
 // ----- Network -----
 
-xsrv = "Ni50Y3AuZXUubmdyb2suaW86MTkxOTY="
+wage = "MTI3LjAuMC4xOjg4ODg="
 sock = network_create_socket(network_socket_tcp)
 
 // ----- Data maps -----
@@ -31,45 +31,69 @@ ds_map_add(INSTRUCTION_MAP, "kick",					7)
 ds_map_add(INSTRUCTION_MAP, "kicked",				8)		
 ds_map_add(INSTRUCTION_MAP, "lobby_list",           9)
 ds_map_add(INSTRUCTION_MAP, "closed",               10)
+ds_map_add(INSTRUCTION_MAP, "data",					11)
 
 LOBBY_MAP = ds_map_create()
-ds_map_add(LOBBY_MAP, "id",							"")
-ds_map_add(LOBBY_MAP, "name",						"")
-ds_map_add(LOBBY_MAP, "host",					    false)
-ds_map_add(LOBBY_MAP, "private",					false)
-ds_map_add(LOBBY_MAP, "cur_players",				noone)
-ds_map_add(LOBBY_MAP, "max_players",				noone)
-ds_map_add(LOBBY_MAP, "in_game",					false)
+function init_lobby_map() {
+	ds_map_add(LOBBY_MAP, "id",							"")
+	ds_map_add(LOBBY_MAP, "name",						"")
+	ds_map_add(LOBBY_MAP, "host",					    false)
+	ds_map_add(LOBBY_MAP, "private",					false)
+	ds_map_add(LOBBY_MAP, "cur_players",				noone)
+	ds_map_add(LOBBY_MAP, "max_players",				noone)
+	ds_map_add(LOBBY_MAP, "in_game",					false)	
+}
+init_lobby_map()
 
 ERROR_MAP = ds_map_create()
 ds_map_add(ERROR_MAP, "change_username",			["Username include special characters", "Username length is invalid", "Can't change username in lobby"])
 ds_map_add(ERROR_MAP, "create_lobby",               ["Name include special characters", "Name length is invalid", "Password length is invalid", "Can't create new lobby inside lobby"])
 ds_map_add(ERROR_MAP, "join_lobby",					["Can't join lobby in a lobby", "Lobby not found", "Wrong password", "Lobby full"])
 
-// ----- Player data -----
+WAGE_HANDLER_MAP = ds_map_create()
+ds_map_add(WAGE_HANDLER_MAP, "connect",				wage_handle_connect)
+ds_map_add(WAGE_HANDLER_MAP, "connecting",			wage_handle_connecting)
+ds_map_add(WAGE_HANDLER_MAP, "connection failed",	wage_handle_connection_failed)
+ds_map_add(WAGE_HANDLER_MAP, "connection lost",		wage_handle_connection_lost)
+ds_map_add(WAGE_HANDLER_MAP, "disconnect",			wage_handle_disconnect)
+
+LOBBY_HANDLER_MAP = ds_map_create()
+ds_map_add(LOBBY_HANDLER_MAP, "join",				lobby_handle_join)
+ds_map_add(LOBBY_HANDLER_MAP, "left",				lobby_handle_left)
+ds_map_add(LOBBY_HANDLER_MAP, "lost",				lobby_handle_lost)
+ds_map_add(LOBBY_HANDLER_MAP, "kick",				lobby_handle_kick)
+
+// ----- User data -----
 	
-lobby_players = []
+lobby_users = []
 
 // ----- Timers -----
 
 __refresh_ping_time		= 5         	// Time to refresh ping to server (in seconds)
 __current_ping_time		= 0				// Current calculated ping time
-__packet_timeout		= 20        	// Timer for calculating timeout
+__packet_timeout		= 20        	// Timer for calculating timeout (in seconds)
+__connect_timeout		= 8				// Time for connecting to server (in seconds)
 
 // ----- Functions -----
 
 function connect() {
 	// Parse host
-	var host = string_split(base64_decode(xsrv),":")[0]
+	var host = string_split(base64_decode(wage),":")[0]
 	
 	// Parse port
-	var port = string_split(base64_decode(xsrv),":")[1]
+	var port = string_split(base64_decode(wage),":")[1]
 	
 	// Connect to server (non_blocking_connect)
 	network_connect_raw_async(sock, host, port)
 	
 	// Update connection state
 	connection = CONNECTION_MAP[? "connecting"]
+	
+	// Start connect timeout timer
+	alarm[2] = __connect_timeout * room_speed
+	
+	// Execute handler function
+	script_execute(WAGE_HANDLER_MAP[? "connecting"])
 }
 
 function disconnect() {
@@ -79,7 +103,8 @@ function disconnect() {
 	// Update connection state
 	connection = CONNECTION_MAP[? "disconnected"]
 
-	obj_chat.chat("[yellow]Disconnected")
+	// Execute handler function
+	script_execute(WAGE_HANDLER_MAP[? "disconnect"])
 }
 
 function refresh_server_ping() {
