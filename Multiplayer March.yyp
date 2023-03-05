@@ -74,6 +74,7 @@
     {"id":{"name":"spr_bullet_color","path":"sprites/spr_bullet_color/spr_bullet_color.yy",},"order":2,},
     {"id":{"name":"obj_camera","path":"objects/obj_camera/obj_camera.yy",},"order":1,},
     {"id":{"name":"obj_button_join","path":"objects/obj_button_join/obj_button_join.yy",},"order":2,},
+    {"id":{"name":"Handler","path":"scripts/Handler/Handler.yy",},"order":3,},
     {"id":{"name":"spr_bullet_outline","path":"sprites/spr_bullet_outline/spr_bullet_outline.yy",},"order":1,},
     {"id":{"name":"spr_main_menu_bg","path":"sprites/spr_main_menu_bg/spr_main_menu_bg.yy",},"order":0,},
     {"id":{"name":"spr_player_thrust_fx","path":"sprites/spr_player_thrust_fx/spr_player_thrust_fx.yy",},"order":4,},

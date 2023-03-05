@@ -47,6 +47,7 @@
     {"name":"spr_bullet_color","order":2,"path":"sprites/spr_bullet_color/spr_bullet_color.yy",},
     {"name":"obj_camera","order":1,"path":"objects/obj_camera/obj_camera.yy",},
     {"name":"obj_button_join","order":2,"path":"objects/obj_button_join/obj_button_join.yy",},
+    {"name":"Handler","order":3,"path":"scripts/Handler/Handler.yy",},
     {"name":"spr_bullet_outline","order":1,"path":"sprites/spr_bullet_outline/spr_bullet_outline.yy",},
     {"name":"spr_player_thrust_fx","order":4,"path":"sprites/spr_player_thrust_fx/spr_player_thrust_fx.yy",},
     {"name":"Player","order":2,"path":"scripts/Player/Player.yy",},
