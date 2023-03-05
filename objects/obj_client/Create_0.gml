@@ -62,6 +62,7 @@ ds_map_add(LOBBY_HANDLER_MAP, "join",				lobby_handle_join)
 ds_map_add(LOBBY_HANDLER_MAP, "left",				lobby_handle_left)
 ds_map_add(LOBBY_HANDLER_MAP, "lost",				lobby_handle_lost)
 ds_map_add(LOBBY_HANDLER_MAP, "kick",				lobby_handle_kick)
+ds_map_add(LOBBY_HANDLER_MAP, "data",               lobby_handle_data)
 
 // ----- User data -----
 	
@@ -144,6 +145,15 @@ function join_lobby(lobby_id="", lobby_password="") {
 	buffer_write(buff, buffer_u8, INSTRUCTION_MAP[? "join"])
 	buffer_write(buff, buffer_string, lobby_id)
 	buffer_write(buff, buffer_string, lobby_password)
+	network_send_raw(sock, buff, buffer_get_size(buff))
+}
+
+function send_data(uuid, buffer) {
+	var buff = buffer_create(1, buffer_grow, 1)
+	buffer_write(buff, buffer_u8, INSTRUCTION_MAP[? "data"])
+	buffer_write(buff, buffer_string, uuid)
+	buffer_write(buff, buffer_string, CLIENT_MAP[? "uuid"])
+	buffer_write(buff, buffer_string, buffer)
 	network_send_raw(sock, buff, buffer_get_size(buff))
 }
 

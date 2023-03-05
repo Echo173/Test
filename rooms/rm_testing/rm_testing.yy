@@ -19,7 +19,6 @@
     {"name":"inst_36A3262F","path":"rooms/rm_testing/rm_testing.yy",},
     {"name":"inst_1027E0B","path":"rooms/rm_testing/rm_testing.yy",},
     {"name":"inst_52138A98","path":"rooms/rm_testing/rm_testing.yy",},
-    {"name":"inst_35AD5605","path":"rooms/rm_testing/rm_testing.yy",},
     {"name":"inst_ED53B51","path":"rooms/rm_testing/rm_testing.yy",},
     {"name":"inst_1ECDC599","path":"rooms/rm_testing/rm_testing.yy",},
     {"name":"inst_F750D7D","path":"rooms/rm_testing/rm_testing.yy",},
@@ -55,7 +54,6 @@
     {"resourceType":"GMRInstanceLayer","resourceVersion":"1.0","name":"Bullets","depth":300,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[],"layers":[],"properties":[],"userdefinedDepth":false,"visible":true,},
     {"resourceType":"GMRInstanceLayer","resourceVersion":"1.0","name":"Players","depth":400,"effectEnabled":true,"effectType":null,"gridX":64,"gridY":64,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_56DDC8A4","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"objectId":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},"properties":[],"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":3648.0,"y":3008.0,},
-        {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_35AD5605","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"objectId":{"name":"obj_player_actor","path":"objects/obj_player_actor/obj_player_actor.yy",},"properties":[],"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":3136.0,"y":3008.0,},
       ],"layers":[],"properties":[],"userdefinedDepth":false,"visible":true,},
     {"resourceType":"GMRInstanceLayer","resourceVersion":"1.0","name":"FX_Bottom","depth":500,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[],"layers":[],"properties":[],"userdefinedDepth":false,"visible":true,},
     {"resourceType":"GMRInstanceLayer","resourceVersion":"1.0","name":"Shadows","depth":600,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[

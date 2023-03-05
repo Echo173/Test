@@ -143,7 +143,7 @@ switch(async_load[? "type"])
 			break
 			
 			case 11: // Data
-				
+				script_execute(LOBBY_HANDLER_MAP[? "data"], (CLIENT_MAP[? "uuid"] == LOBBY_MAP[? "host"]), buffer_read(buff, buffer_string), buffer_read(buff, buffer_string))
 			break
 		}
 	break

@@ -2,7 +2,7 @@
 function wage_handle_connect() {
 	// This function is called at connection to wage server
 	
-	obj_chat.chat("[yellow]connected")
+	// obj_chat.chat("[yellow]connected")
 }
 
 function wage_handle_connecting() {
@@ -77,5 +77,9 @@ function lobby_handle_kick(host, ind) {
 	var user = obj_client.lobby_users[ind]
 	
 	obj_chat.chat(string("[yellow]{0} kick by host", user.username))
+}
+
+function lobby_handle_data(host, origin, data) {
+	print(origin)
 }
 #endregion
