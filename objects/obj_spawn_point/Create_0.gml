@@ -1,0 +1,1 @@
+index = -1 //This determines which player will spawn here

@@ -115,40 +115,7 @@ if (yspd >= ymax) yspd = approach(yspd,ymax,ymax_fric)
 if (yspd <= -ymax) yspd = approach(yspd,-ymax,ymax_fric)
 
 ///Animation & State Update -----------------------------------------------------------------------------------------
-//Rotate the player sprite
-image_angle = aim_dir
-
-//Change sprite based on current travel speed
-var min_spd = 0.8
-if (key_thrust) min_spd = -1
-
-if (avg_spd < min_spd) {
-	animstate = ANIMSTATE.STOP
-}
-if (avg_spd >= min_spd) {
-	land_init = 0
-	if (animstate = ANIMSTATE.FAST)
-	{
-		animstate_change_timer += 1
-		if (animstate_change_timer > 10)
-		{
-			animstate = ANIMSTATE.SLOW
-		}
-	}
-	else
-	{
-		animstate = ANIMSTATE.SLOW
-	}
-}
-if (avg_spd > max_spd/2) {
-	animstate = ANIMSTATE.FAST
-	animstate_change_timer = 0
-	
-	land_init = 0
-}
-
-//Animate
-animate_player(animstate);
+animate_player();
 
 //Set cape image speed (faster when moving fast)
 image_speed = 0.5 + (2 * (avg_spd/20))
