@@ -95,8 +95,8 @@
   ],
   "RoomOrderNodes": [
     {"roomId":{"name":"rm_init","path":"rooms/rm_init/rm_init.yy",},},
-    {"roomId":{"name":"rm_arena_1","path":"rooms/rm_arena_1/rm_arena_1.yy",},},
     {"roomId":{"name":"rm_testing","path":"rooms/rm_testing/rm_testing.yy",},},
+    {"roomId":{"name":"rm_arena_1","path":"rooms/rm_arena_1/rm_arena_1.yy",},},
     {"roomId":{"name":"rm_main_menu","path":"rooms/rm_main_menu/rm_main_menu.yy",},},
   ],
   "TextureGroups": [
