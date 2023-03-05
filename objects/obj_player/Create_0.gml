@@ -7,18 +7,18 @@ key_dash_buffer = 0
 
 //Physics -----------------------------------------------------------
 enum ANIMSTATE {
-	GROUND = 0,
-	LOW_AIR = 1,
-	AIR = 2,
+	STOP = 0,
+	SLOW = 1,
+	FAST = 2,
 }
 
-animstate = ANIMSTATE.GROUND
+animstate = ANIMSTATE.STOP
 animstate_change_timer = 0
 
 xspd = 0
 yspd = 0
 avg_spd = 0
-max_spd = 20
+max_spd = 20 //Max 40
 
 aim_dir = 0
 fric = 0.3
@@ -60,10 +60,20 @@ player_color = make_color_rgb(87, 207, 23)
 
 hit_flash_alpha = 0
 hit_flash_alpha_dec = 0
+
 function hit_flash(_alpha, _dec) {
 	hit_flash_alpha = _alpha
 	hit_flash_alpha_dec = _dec
 }
+
+head_sprite = spr_player_head_1 //Update from Lobby
+head_image_index = 0
+
+head_offset = 0
+head_offset_max = 16
+
+head_x = 0
+head_y = 0
 
 //Additional Objects
 var _bar = instance_create_layer(x, y, "Bars", obj_player_bar_display)

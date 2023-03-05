@@ -26,6 +26,11 @@ move_stun_timer -= 1
 if (dash_immune_duration_timer <= 0) {
 	check_for_damage_collision();
 }
+else
+{
+	//Stop the player from shooting during a dodge
+	key_shoot = 0
+}
 dash_immune_duration_timer -= 1
 
 ///Movement -------------------------------------------------------------------------------------------
@@ -118,42 +123,35 @@ var min_spd = 0.8
 if (key_thrust) min_spd = -1
 
 if (avg_spd < min_spd) {
-	animstate = ANIMSTATE.GROUND
+	animstate = ANIMSTATE.STOP
 }
 if (avg_spd >= min_spd) {
 	land_init = 0
-	if (animstate = ANIMSTATE.AIR)
+	if (animstate = ANIMSTATE.FAST)
 	{
 		animstate_change_timer += 1
 		if (animstate_change_timer > 10)
 		{
-			animstate = ANIMSTATE.LOW_AIR
+			animstate = ANIMSTATE.SLOW
 		}
 	}
 	else
 	{
-		animstate = ANIMSTATE.LOW_AIR
+		animstate = ANIMSTATE.SLOW
 	}
 }
-if (avg_spd > max_spd/4) {
-	animstate = ANIMSTATE.AIR
+if (avg_spd > max_spd/2) {
+	animstate = ANIMSTATE.FAST
 	animstate_change_timer = 0
 	
 	land_init = 0
 }
 
-//Set Sprites
-switch (animstate) {
-	case ANIMSTATE.GROUND:
-		sprite_index = spr_player_ground
-		break;
-	case ANIMSTATE.LOW_AIR:
-		sprite_index = spr_player_low_air	
-		break;
-	case ANIMSTATE.AIR:
-		sprite_index = spr_player_air	
-		break;
-}
+//Animate
+animate_player(animstate);
+
+//Set cape image speed (faster when moving fast)
+image_speed = 0.5 + (2 * (avg_spd/20))
 
 //FX -----------------------------------------------------------------------------------------
 //Trail Effects

@@ -30,8 +30,8 @@
   "properties": [],
   "solid": false,
   "spriteId": {
-    "name": "spr_player_ground",
-    "path": "sprites/spr_player_ground/spr_player_ground.yy",
+    "name": "spr_player_cape_stop",
+    "path": "sprites/spr_player_cape_stop/spr_player_cape_stop.yy",
   },
   "spriteMaskId": {
     "name": "spr_player_collision",
