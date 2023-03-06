@@ -63,5 +63,4 @@ function chat(msg="") {
 	/// @description              Will create new chat message with message provided
 
 	ds_list_add(CHAT_LIST, [parse_colors(msg), message_time * room_speed])
-	print(parse_colors(msg))
 }

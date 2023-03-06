@@ -79,7 +79,14 @@ function lobby_handle_kick(host, ind) {
 	obj_chat.chat(string("[yellow]{0} kick by host", user.username))
 }
 
-function lobby_handle_data(host, origin, data) {
+function lobby_handle_data(host, buff) {
+	// Read sender from buffer
+	var origin	= buffer_read(buff, buffer_string)
+	var cmd		= buffer_read(buff, buffer_s16)
+	var data	= buffer_read(buff, buffer_string)
+	
 	print(origin)
+	print(cmd)
+	print(data)
 }
 #endregion

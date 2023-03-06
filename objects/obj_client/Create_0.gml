@@ -37,7 +37,7 @@ LOBBY_MAP = ds_map_create()
 function init_lobby_map() {
 	ds_map_add(LOBBY_MAP, "id",							"")
 	ds_map_add(LOBBY_MAP, "name",						"")
-	ds_map_add(LOBBY_MAP, "host",					    false)
+	ds_map_add(LOBBY_MAP, "host",						false)
 	ds_map_add(LOBBY_MAP, "private",					false)
 	ds_map_add(LOBBY_MAP, "cur_players",				noone)
 	ds_map_add(LOBBY_MAP, "max_players",				noone)
@@ -148,12 +148,15 @@ function join_lobby(lobby_id="", lobby_password="") {
 	network_send_raw(sock, buff, buffer_get_size(buff))
 }
 
-function send_data(uuid, buffer) {
+function send_data(instruction, json_data, uuid) {
 	var buff = buffer_create(1, buffer_grow, 1)
 	buffer_write(buff, buffer_u8, INSTRUCTION_MAP[? "data"])
-	buffer_write(buff, buffer_string, uuid)
-	buffer_write(buff, buffer_string, CLIENT_MAP[? "uuid"])
-	buffer_write(buff, buffer_string, buffer)
+	var data_map = ds_map_create()
+	ds_map_add(data_map, "origin",		CLIENT_MAP[? "uuid"])
+	ds_map_add(data_map, "destination", uuid)
+	ds_map_add(data_map, "instruction", instruction)
+	ds_map_add(data_map, "data",		json_data)
+	buffer_write(buff, buffer_string, json_encode(data_map))
 	network_send_raw(sock, buff, buffer_get_size(buff))
 }
 
