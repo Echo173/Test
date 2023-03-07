@@ -24,6 +24,46 @@ function print(msg="") {
 	show_debug_message(string(msg))
 }
 
+//Get player color
+function get_player_color(_color_index) {
+	var _col = c_black
+	
+	switch (_color_index) {
+		case 1:
+			_col = make_color_rgb(224, 13, 13)
+			break;
+		case 2:
+			_col = make_color_rgb(245, 150, 7)
+			break;
+		case 3:
+			_col = make_color_rgb(255, 244, 84)
+			break;
+		case 4:
+			_col = make_color_rgb(119, 227, 57)
+			break;
+		case 5:
+			_col = make_color_rgb(22, 204, 83)
+			break;
+		case 6:
+			_col = make_color_rgb(26, 222, 240)
+			break;
+		case 7:
+			_col = make_color_rgb(58, 89, 242)
+			break;
+		case 8:
+			_col = make_color_rgb(92, 52, 148)
+			break;
+		case 9:
+			_col = make_color_rgb(242, 141, 217)
+			break;
+		case 10:
+			_col = make_color_rgb(209, 209, 209)
+			break;
+	}
+	
+	return _col;
+}
+
 /// @param {buffer} buffer
 /// @param {int} ?bytesPerRow
 /// @returns {string} text representation

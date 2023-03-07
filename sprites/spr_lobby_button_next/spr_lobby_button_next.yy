@@ -23,7 +23,7 @@
     {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"aa5b4fbb-6d5f-483a-a513-da5c374861bf","blendMode":0,"displayName":"default","isLocked":false,"opacity":100.0,"visible":true,},
   ],
   "nineSlice": null,
-  "origin": 4,
+  "origin": 5,
   "parent": {
     "name": "Lobby",
     "path": "folders/Sprites/Menus/Lobby.yy",
@@ -59,7 +59,7 @@
     ],
     "visibleRange": null,
     "volume": 1.0,
-    "xorigin": 128,
+    "xorigin": 256,
     "yorigin": 32,
   },
   "swatchColours": null,

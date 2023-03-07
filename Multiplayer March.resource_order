@@ -53,6 +53,7 @@
     {"name":"spr_collision_full","order":1,"path":"sprites/spr_collision_full/spr_collision_full.yy",},
     {"name":"spr_main_menu_title","order":1,"path":"sprites/spr_main_menu_title/spr_main_menu_title.yy",},
     {"name":"obj_player","order":2,"path":"objects/obj_player/obj_player.yy",},
+    {"name":"obj_lobby_button_start","order":2,"path":"objects/obj_lobby_button_start/obj_lobby_button_start.yy",},
     {"name":"spr_collision_half","order":3,"path":"sprites/spr_collision_half/spr_collision_half.yy",},
     {"name":"obj_shadow_renderer","order":3,"path":"objects/obj_shadow_renderer/obj_shadow_renderer.yy",},
     {"name":"spr_lobby_button_leave","order":3,"path":"sprites/spr_lobby_button_leave/spr_lobby_button_leave.yy",},
@@ -64,6 +65,7 @@
     {"name":"obj_button_join","order":2,"path":"objects/obj_button_join/obj_button_join.yy",},
     {"name":"Handler","order":3,"path":"scripts/Handler/Handler.yy",},
     {"name":"spr_bullet_outline","order":1,"path":"sprites/spr_bullet_outline/spr_bullet_outline.yy",},
+    {"name":"obj_lobby_button_leave","order":3,"path":"objects/obj_lobby_button_leave/obj_lobby_button_leave.yy",},
     {"name":"spr_player_thrust_fx","order":4,"path":"sprites/spr_player_thrust_fx/spr_player_thrust_fx.yy",},
     {"name":"Player","order":2,"path":"scripts/Player/Player.yy",},
     {"name":"fnt_chat","order":1,"path":"fonts/fnt_chat/fnt_chat.yy",},
@@ -78,6 +80,7 @@
     {"name":"spr_lobby_map_select","order":7,"path":"sprites/spr_lobby_map_select/spr_lobby_map_select.yy",},
     {"name":"rm_arena_1","order":4,"path":"rooms/rm_arena_1/rm_arena_1.yy",},
     {"name":"spr_main_menu_button_join","order":3,"path":"sprites/spr_main_menu_button_join/spr_main_menu_button_join.yy",},
+    {"name":"obj_lobby_character","order":1,"path":"objects/obj_lobby_character/obj_lobby_character.yy",},
     {"name":"rm_testing","order":3,"path":"rooms/rm_testing/rm_testing.yy",},
   ],
 }

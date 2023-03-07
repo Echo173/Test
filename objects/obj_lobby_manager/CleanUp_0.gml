@@ -1,0 +1,1 @@
+ds_queue_destroy(new_player_queue);
