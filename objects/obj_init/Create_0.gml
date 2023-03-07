@@ -5,4 +5,4 @@ global.show_hitboxes = false
 
 room_goto_next();
 
-window_set_size(320*3, 180*3)
+//window_set_size(320*3, 180*3)
