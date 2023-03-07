@@ -11,6 +11,10 @@ else
 	//Init the player in their instance of the lobby
 	if (lobby_init = false) {
 		lobby_init = true
+		
+		//[NET] Add any exising players that were already in the lobby by adding them to the queue
+		//ds_queue_enqueue(new_player_queue, any_existing_users)
+		
 		add_player_to_lobby(user_index)
 		//[NET] Trigger new player init in other lobbies
 		//Do this by sending a packet that will trigger the following code in this object on all other computers
@@ -38,16 +42,16 @@ for (var ii = 1; ii <= lobby_size; ii += 1) {
 	character_id[ii].goto_x = room_width/2 - _width/2 + _offset*(ii - 1)
 }
 
-//Test
-if (keyboard_check_pressed(vk_space)) {
-	ds_queue_enqueue(new_player_queue, lobby_size + 1)
-}
-if (keyboard_check_pressed(ord("1"))) player_data[1,PDATA.CONNECTED] = false
-if (keyboard_check_pressed(ord("2"))) player_data[2,PDATA.CONNECTED] = false
-if (keyboard_check_pressed(ord("3"))) player_data[3,PDATA.CONNECTED] = false
-if (keyboard_check_pressed(ord("4"))) player_data[4,PDATA.CONNECTED] = false
-if (keyboard_check_pressed(ord("5"))) player_data[5,PDATA.CONNECTED] = false
-if (keyboard_check_pressed(ord("6"))) player_data[6,PDATA.CONNECTED] = false
-if (keyboard_check_pressed(ord("7"))) player_data[7,PDATA.CONNECTED] = false
-if (keyboard_check_pressed(ord("8"))) player_data[8,PDATA.CONNECTED] = false
+//For testing add_player_to_lobby() && remove_player_from_lobby() vv
+//if (keyboard_check_pressed(vk_space)) {
+//	ds_queue_enqueue(new_player_queue, lobby_size + 1)
+//}
+//if (keyboard_check_pressed(ord("1"))) player_data[1,PDATA.CONNECTED] = false
+//if (keyboard_check_pressed(ord("2"))) player_data[2,PDATA.CONNECTED] = false
+//if (keyboard_check_pressed(ord("3"))) player_data[3,PDATA.CONNECTED] = false
+//if (keyboard_check_pressed(ord("4"))) player_data[4,PDATA.CONNECTED] = false
+//if (keyboard_check_pressed(ord("5"))) player_data[5,PDATA.CONNECTED] = false
+//if (keyboard_check_pressed(ord("6"))) player_data[6,PDATA.CONNECTED] = false
+//if (keyboard_check_pressed(ord("7"))) player_data[7,PDATA.CONNECTED] = false
+//if (keyboard_check_pressed(ord("8"))) player_data[8,PDATA.CONNECTED] = false
 

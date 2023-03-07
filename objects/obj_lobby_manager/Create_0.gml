@@ -4,7 +4,7 @@ lobby_init = false
 user_index = -1
 lobby_size = 0
 
-new_player_queue = ds_queue_create();
+new_player_queue = ds_queue_create(); //This may be redundant, pls remove if its unnecessary and just call add_player_to_lobby() instead
 
 //Init player data variable
 globalvar player_data;
@@ -12,7 +12,8 @@ globalvar player_data;
 enum PDATA {
 	CONNECTED = 0, //Boolean of if the player is still connected to this lobby
 	COLOR_INDEX = 1, //The index (1 through 10) of the players selected color
-	HEAD_INDEX = 2, //The index of the players selected head type (just 1 exists right now)
+	HEAD_INDEX = 2,
+	USERNAME = 3, //The index of the players selected head type (just 1 exists right now)
 }
 
 character_id[1] = noone
@@ -44,6 +45,7 @@ function add_player_to_lobby(_user_index) {
 	//Set other player data
 	player_data[_user_index,PDATA.HEAD_INDEX] = 1
 	player_data[_user_index,PDATA.CONNECTED] = true
+	player_data[_user_index,PDATA.USERNAME] = "PLAYER " + string(_user_index)
 	
 	//Create the appropriate lobby character object
 	character_id[_user_index] = instance_create_layer(room_width/2, 352, "Display", obj_lobby_character)
@@ -59,11 +61,12 @@ function remove_player_from_lobby(_user_index) {
 	//Delete the appropriate lobby character
 	instance_destroy(character_id[_user_index]);
 	
-	//Reorder player_data array to remove the user that has disconnected
+	//Reorder player_data array to remove the user that has disconnected (shuffle everything down 1)
 	for (var ii = _user_index; ii <= lobby_size - 1; ii += 1) {
 		player_data[ii, PDATA.CONNECTED] = player_data[ii + 1, PDATA.CONNECTED]
 		player_data[ii, PDATA.COLOR_INDEX] = player_data[ii + 1, PDATA.COLOR_INDEX]
 		player_data[ii, PDATA.HEAD_INDEX] = player_data[ii + 1, PDATA.HEAD_INDEX]
+		player_data[ii, PDATA.USERNAME] = player_data[ii + 1, PDATA.USERNAME]
 	}
 	
 	//Update charactrer_id array
