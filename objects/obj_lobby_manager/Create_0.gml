@@ -69,6 +69,10 @@ function remove_player_from_lobby(_user_index) {
 		player_data[ii, PDATA.USERNAME] = player_data[ii + 1, PDATA.USERNAME]
 	}
 	
+	if (user_index > _user_index) {
+		user_index -= 1
+	}
+	
 	//Update charactrer_id array
 	with (obj_lobby_character) {
 		if (index > _user_index) {
