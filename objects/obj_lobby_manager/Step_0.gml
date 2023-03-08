@@ -47,8 +47,8 @@ for (var ii = 1; ii <= lobby_size; ii += 1) {
 //Start Game
 if (trigger_game_start = true) {
 	trigger_game_start = false
-	
-	instance_create_layer(0,0,"Controllers",obj_game_manager)
+	room_goto(rm_arena_1)
+	//instance_create_layer(0,0,"Controllers",obj_game_manager)
 }	
 
 //For testing add_player_to_lobby() && remove_player_from_lobby() vv

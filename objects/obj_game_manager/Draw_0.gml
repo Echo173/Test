@@ -1,3 +1,3 @@
-switch (gamestate) {
+//switch (gamestate) {
 	
-}
+//}
