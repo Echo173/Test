@@ -2,24 +2,23 @@
 
 //Init Spawn Vars
 enum GAMESTATE {
-	LOAD = 0,
-	COMBAT = 1,
-	ROOM_CHANGE = 2
+	UPGRADE = 0,
+	COMBAT_INIT = 1,
+	COMBAT_COUNTDOWN = 2,
+	COMBAT = 3,
 }
 
 globalvar gamestate;
-gamestate = GAMESTATE.LOAD
+gamestate = GAMESTATE.UPGRADE
 
-spawn_init = false
 spawn_offset = 0
 
-lobby_size = 0 //Replace this variables with relevant networking one
-load_room = rm_arena_1
+//Upgrade Screen Vars
+upgrade_state_init = 0
 
-for (var ii = 1; ii <= lobby_size; ii += 1) {
-	player_loaded[ii] = false //Number Players 1 to 8
-}
+upgrade_timer_seconds_max = 20
+upgrade_timer_seconds = 0
+upgrade_timer = 0
 
-for (var ii = 1; ii <= lobby_size; ii += 1) {
-	player_loaded[ii] = false //Number Players 1 to 8
-}
+upgrade_page = 0
+upgrade_menu_spd = 5

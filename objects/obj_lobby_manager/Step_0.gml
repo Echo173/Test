@@ -12,8 +12,10 @@ else
 	if (lobby_init = false) {
 		lobby_init = true
 		
-		//[NET] Add any exising players that were already in the lobby by adding them to the queue
-		//ds_queue_enqueue(new_player_queue, any_existing_users)
+		//[NET] Add any exising players that were already in the lobby - make sure lobby_size is update for this
+		for (var ii = 1; ii <= lobby_size; ii += 1) {
+			add_player_to_lobby(ii)
+		}
 		
 		add_player_to_lobby(user_index)
 		//[NET] Trigger new player init in other lobbies
@@ -41,6 +43,13 @@ var _width = _offset * (lobby_size - 1)
 for (var ii = 1; ii <= lobby_size; ii += 1) {
 	character_id[ii].goto_x = room_width/2 - _width/2 + _offset*(ii - 1)
 }
+
+//Start Game
+if (trigger_game_start = true) {
+	trigger_game_start = false
+	
+	instance_create_layer(0,0,"Controllers",obj_game_manager)
+}	
 
 //For testing add_player_to_lobby() && remove_player_from_lobby() vv
 //if (keyboard_check_pressed(vk_space)) {

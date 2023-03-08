@@ -5,7 +5,8 @@ if (instance_position(mouse_x,mouse_y,id)) {
 	//If this button is clicked
 	if (mouse_check_button_pressed(mb_left)) {
 		//Leave Lobby
-		room_goto(rm_arena_1);
+		//[NET] Brodcast that the game is starting
+		obj_lobby_manager.trigger_game_start = true
 	}
 }
 else
