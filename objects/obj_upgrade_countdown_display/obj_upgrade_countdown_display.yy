@@ -1,10 +1,8 @@
 {
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
-  "name": "obj_upgrade_button_reroll",
+  "name": "obj_upgrade_countdown_display",
   "eventList": [
-    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,},
-    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,},
     {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,},
   ],
   "managed": true,
@@ -13,10 +11,7 @@
     "name": "Upgrades",
     "path": "folders/Objects/Upgrades.yy",
   },
-  "parentObjectId": {
-    "name": "obj_upgrade_spell_bar",
-    "path": "objects/obj_upgrade_spell_bar/obj_upgrade_spell_bar.yy",
-  },
+  "parentObjectId": null,
   "persistent": false,
   "physicsAngularDamping": 0.1,
   "physicsDensity": 0.5,
@@ -32,10 +27,7 @@
   "physicsStartAwake": true,
   "properties": [],
   "solid": false,
-  "spriteId": {
-    "name": "spr_upgrade_button_reroll",
-    "path": "sprites/spr_upgrade_button_reroll/spr_upgrade_button_reroll.yy",
-  },
+  "spriteId": null,
   "spriteMaskId": null,
   "visible": true,
 }

@@ -13,7 +13,7 @@ if (keyboard_check_pressed(vk_f11)) {
 var cam_spd = 5
 
 var dir = point_direction(x,y,mouse_x,mouse_y)
-var rad = 128
+var rad = 256
 var m = 1
 
 //Follow Target

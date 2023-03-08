@@ -1,11 +1,10 @@
 {
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
-  "name": "obj_upgrade_button_reroll",
+  "name": "obj_upgrade_button_swap_page",
   "eventList": [
-    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,},
     {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,},
-    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,},
+    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,},
   ],
   "managed": true,
   "overriddenProperties": [],
@@ -13,10 +12,7 @@
     "name": "Upgrades",
     "path": "folders/Objects/Upgrades.yy",
   },
-  "parentObjectId": {
-    "name": "obj_upgrade_spell_bar",
-    "path": "objects/obj_upgrade_spell_bar/obj_upgrade_spell_bar.yy",
-  },
+  "parentObjectId": null,
   "persistent": false,
   "physicsAngularDamping": 0.1,
   "physicsDensity": 0.5,
@@ -33,8 +29,8 @@
   "properties": [],
   "solid": false,
   "spriteId": {
-    "name": "spr_upgrade_button_reroll",
-    "path": "sprites/spr_upgrade_button_reroll/spr_upgrade_button_reroll.yy",
+    "name": "spr_upgrade_button_swap_page",
+    "path": "sprites/spr_upgrade_button_swap_page/spr_upgrade_button_swap_page.yy",
   },
   "spriteMaskId": null,
   "visible": true,

@@ -48,6 +48,8 @@ for (var ii = 1; ii <= lobby_size; ii += 1) {
 if (trigger_game_start = true) {
 	trigger_game_start = false
 	room_goto(rm_arena_1)
+	
+	//room_goto(rm_upgrade)
 	//instance_create_layer(0,0,"Controllers",obj_game_manager)
 }	
 
