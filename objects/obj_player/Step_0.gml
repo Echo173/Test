@@ -3,6 +3,12 @@ key_thrust = mouse_check_button(mb_left)
 key_shoot = mouse_check_button(mb_right)
 key_dash =  keyboard_check_pressed(vk_space)
 
+if (gamestate != GAMESTATE.COMBAT) {
+	key_thrust = 0
+	key_shoot = 0
+	key_dash = 0
+}
+
 //MoveStun
 if (move_stun_timer > 0) {
 	key_thrust = 0
@@ -32,6 +38,11 @@ else
 	key_shoot = 0
 }
 dash_immune_duration_timer -= 1
+
+//Check for death
+if (hp <= 0) {
+	instance_destroy();	
+}
 
 ///Movement -------------------------------------------------------------------------------------------
 //Get the direction of the mouse

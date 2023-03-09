@@ -2,6 +2,7 @@
 lobby_init = false
 
 trigger_game_start = false
+trigger_game_start_init = 0
 
 globalvar user_index;
 user_index = -1
@@ -11,6 +12,9 @@ lobby_size = 0;
 
 globalvar rounds_to_win;
 rounds_to_win = 3;
+
+globalvar upgrade_time_limit;
+upgrade_time_limit = 5 //In seconds
 
 globalvar arena_selected;
 arena_selected = rm_arena_1
@@ -31,6 +35,7 @@ enum PDATA {
 	DAMAGE = 7, //Total damage the player has delt this game
 	KILLS = 8, //Total kills the player has gotten this game
 	TIME_ALIVE = 9, //Total time the player has been alive this game
+	UPGRADE_SELECTED = 10, //Keeps track of if the player has selected an upgrade yet
 }
 
 character_id[1] = noone

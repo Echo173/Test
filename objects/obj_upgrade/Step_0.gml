@@ -8,18 +8,57 @@ if (is_equipped = false) {
 	goto_x = (room_width/2 + ((number - 1) * 320)) - _page_buffer
 	
 	//Check to see if the mouse is hovering over this button
-	if (instance_position(mouse_x,mouse_y,id)) {
+	if (instance_position(mouse_x,mouse_y,id)) && (player_data[user_index, PDATA.UPGRADE_SELECTED] = false) {
 		goto_scale = 1.2
 	
 		//If this button is clicked
 		if (mouse_check_button_pressed(mb_left)) {
 			//SELECT UPGRADE
-			
+			is_selected = true
 		}
 	}
 	else
 	{
 		goto_scale = 1
+	}
+	
+	if (is_selected = true) {
+		
+		is_selected = false
+		
+		player_data[user_index, PDATA.UPGRADE_SELECTED] = true
+		obj_game_manager.upgrade_page = 1
+			
+		switch (upgrade_type) {
+				
+			case UTYPE.SPELL:
+				with (obj_upgrade) {
+					if (is_equipped = true) && (upgrade_type = UTYPE.SPELL) {
+						instance_destroy();	
+					}
+				}
+					
+				reroll_count += 1
+				is_equipped = true
+				number = 1
+					
+				player_data[user_index,PDATA.SPELL] = upgrade_index
+				break;
+					
+			case UTYPE.MOD:
+				is_equipped = true
+				number = ds_list_size(player_data[user_index,PDATA.MODS])
+					
+				ds_list_add(player_data[user_index,PDATA.MODS], upgrade_index)
+				break;
+					
+			case UTYPE.GEAR:
+				is_equipped = true
+				number = ds_list_size(player_data[user_index,PDATA.GEAR])
+					
+				ds_list_add(player_data[user_index,PDATA.GEAR], upgrade_index)
+				break;
+		}	
 	}
 }
 else

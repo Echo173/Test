@@ -19,6 +19,13 @@ function approach(value,target_value,spd){
 	return value;
 }
 
+//Room transition - Is just a fade to black for now but will update to something cooler in the final game
+function room_transition(_target_room) {
+	var _tt = instance_create_layer(0,0,"Screen",obj_fade_out)
+	_tt.target_room = _target_room
+}
+
+
 //Print
 function print(msg="") {
 	show_debug_message(string(msg))

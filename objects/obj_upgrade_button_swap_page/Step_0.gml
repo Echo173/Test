@@ -1,4 +1,4 @@
-if (obj_game_manager.upgrade_selected = true) {
+if (player_data[user_index, PDATA.UPGRADE_SELECTED] = true) {
 	goto_y = room_height + 112
 }
 else

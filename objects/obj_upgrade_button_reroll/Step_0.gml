@@ -1,5 +1,5 @@
 //Check to see if the mouse is hovering over this button
-if (instance_position(mouse_x,mouse_y,id)) && (reroll_count > 0) {
+if (instance_position(mouse_x,mouse_y,id)) && (reroll_count > 0) && (player_data[user_index, PDATA.UPGRADE_SELECTED] = false) {
 	goto_scale = 1.1
 	
 	//If this button is clicked

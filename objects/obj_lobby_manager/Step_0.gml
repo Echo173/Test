@@ -46,11 +46,13 @@ for (var ii = 1; ii <= lobby_size; ii += 1) {
 
 //Start Game
 if (trigger_game_start = true) {
-	trigger_game_start = false
-	room_goto(rm_arena_1)
+	if (trigger_game_start_init = 0) {
+		trigger_game_start_init = 1
+		//room_goto(rm_arena_1)
 	
-	//room_goto(rm_upgrade)
-	//instance_create_layer(0,0,"Controllers",obj_game_manager)
+		room_transition(rm_upgrade)
+		instance_create_layer(0,0,"Controllers",obj_game_manager)
+	}	
 }	
 
 //For testing add_player_to_lobby() && remove_player_from_lobby() vv

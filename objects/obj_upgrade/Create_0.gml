@@ -1,4 +1,5 @@
 is_equipped = false
+is_selected = false
 
 goto_x = x
 goto_y = y
