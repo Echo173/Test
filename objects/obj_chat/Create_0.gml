@@ -64,3 +64,6 @@ function chat(msg="") {
 
 	ds_list_add(CHAT_LIST, [parse_colors(msg), message_time * room_speed])
 }
+
+chat("[red]I added error handling. Joining lobbies works and creating lobbies, but because server is offline you can't go to lobby menu! Because game can't create lobbies on server due to offline")
+chat("[white]To go to lobby menu press [crazy_color]F2")
