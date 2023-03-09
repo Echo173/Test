@@ -5,6 +5,7 @@ if (instance_position(mouse_x,mouse_y,id)) {
 	//If this button is clicked
 	if (mouse_check_button_pressed(mb_left)) {
 		//Leave Lobby
+		obj_client.leave_lobby()
 		room_goto(rm_main_menu);
 	}
 }

@@ -127,7 +127,8 @@ switch(async_load[? "type"])
 				if successful {
 					init_lobby_map()
 				} else {
-					break
+					var error_code = buffer_read(buff, buffer_u8)
+					obj_chat.chat("[red]"+string(ERROR_MAP[? "leave"][error_code]))
 				}
 			break
 			

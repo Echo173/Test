@@ -49,6 +49,7 @@ ERROR_MAP = ds_map_create()
 ds_map_add(ERROR_MAP, "change_username",			["Username include special characters", "Username length is invalid", "Can't change username in lobby"])
 ds_map_add(ERROR_MAP, "create_lobby",               ["Name include special characters", "Name length is invalid", "Password length is invalid", "Can't create new lobby inside lobby"])
 ds_map_add(ERROR_MAP, "join_lobby",					["Can't join lobby in a lobby", "Lobby not found", "Wrong password", "Lobby full"])
+ds_map_add(ERROR_MAP, "leave",						["Not in a lobby"])
 
 WAGE_HANDLER_MAP = ds_map_create()
 ds_map_add(WAGE_HANDLER_MAP, "connect",				wage_handle_connect)
@@ -148,11 +149,16 @@ function join_lobby(lobby_id="", lobby_password="") {
 	network_send_raw(sock, buff, buffer_get_size(buff))
 }
 
+function leave_lobby() {
+	var buff = buffer_create(1, buffer_grow, 1)
+	buffer_write(buff, buffer_u8, INSTRUCTION_MAP[? "leave"])
+	network_send_raw(sock, buff, buffer_get_size(buff))
+}
+
 function send_data(instruction, json_data, uuid) {
 	var buff = buffer_create(1, buffer_grow, 1)
 	buffer_write(buff, buffer_u8, INSTRUCTION_MAP[? "data"])
 	var data_map = ds_map_create()
-	ds_map_add(data_map, "origin",		CLIENT_MAP[? "uuid"])
 	ds_map_add(data_map, "destination", uuid)
 	ds_map_add(data_map, "instruction", instruction)
 	ds_map_add(data_map, "data",		json_data)

@@ -40,7 +40,8 @@ function lobby_handle_join(host, ind) {
 	
 	obj_chat.chat(string("[yellow]{0} joined the game", user.username))
 	
-	instance_create_layer(room_width/2, room_height/2, "Players", obj_player_actor, {username: user.username, uuid: user.UUID})
+	// Create player object with its value 
+	// instance_create_layer(room_width/2, room_height/2, "Players", obj_player_actor, {username: user.username, uuid: user.UUID})
 }
 
 function lobby_handle_left(host, ind) {
@@ -83,10 +84,12 @@ function lobby_handle_data(host, buff) {
 	// Read sender from buffer
 	var origin	= buffer_read(buff, buffer_string)
 	var cmd		= buffer_read(buff, buffer_s16)
-	var data	= buffer_read(buff, buffer_string)
+	var data	= json_parse(buffer_read(buff, buffer_string))
 	
 	print(origin)
 	print(cmd)
 	print(data)
+	
+	
 }
 #endregion
