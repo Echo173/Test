@@ -26,6 +26,12 @@ function wage_handle_disconnect() {
 	
 	obj_chat.chat("[yellow]disconnected")
 }
+
+function wage_handle_lobby_join() {
+	// This function is called if user joins lobby	
+
+	room_goto(rm_lobby)
+}
 #endregion
 
 #region Lobby

@@ -11,7 +11,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "Lobby",
-    "path": "folders/Objects/Menus/Lobby.yy",
+    "path": "folders/Objects/FX/Menus/Lobby.yy",
   },
   "parentObjectId": null,
   "persistent": false,

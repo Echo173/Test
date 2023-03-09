@@ -19,7 +19,7 @@ switch(async_load[? "type"])
 				// Reset ping timer
 				alarm[0] = __refresh_ping_time * room_speed
 				
-				obj_chat.chat("[yellow]ping: [white]" + string(CLIENT_MAP[? "ping"]) + "ms")
+				obj_chat.chat("[black]ping: [white]" + string(CLIENT_MAP[? "ping"]) + "ms")
 			break
 			
 			case INSTRUCTIONS.CLIENT_INFO:
@@ -67,8 +67,8 @@ switch(async_load[? "type"])
 				var successful = buffer_read(buff, buffer_bool)
 				
 				if successful {
-					LOBBY_MAP[? "host"] = true
 					obj_chat.chat("[lime]lobby created successfully")
+					script_execute(WAGE_HANDLER_MAP[? "lobby join"])
 				} else {
 					var error_code = buffer_read(buff, buffer_u8)
 					obj_chat.chat("[red]"+string(ERROR_MAP[? "create_lobby"][error_code]))
@@ -136,7 +136,7 @@ switch(async_load[? "type"])
 				var successful = buffer_read(buff, buffer_bool)
 				
 				if successful {
-					LOBBY_MAP[? "host"] = false
+					script_execute(WAGE_HANDLER_MAP[? "lobby join"])
 				} else {
 					var error_code = buffer_read(buff, buffer_u8)
 					obj_chat.chat("[red]"+string(ERROR_MAP[? "join_lobby"][error_code]))

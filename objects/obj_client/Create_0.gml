@@ -61,6 +61,7 @@ ds_map_add(WAGE_HANDLER_MAP, "connecting",			wage_handle_connecting)
 ds_map_add(WAGE_HANDLER_MAP, "connection failed",	wage_handle_connection_failed)
 ds_map_add(WAGE_HANDLER_MAP, "connection lost",		wage_handle_connection_lost)
 ds_map_add(WAGE_HANDLER_MAP, "disconnect",			wage_handle_disconnect)
+ds_map_add(WAGE_HANDLER_MAP, "lobby join",          wage_handle_lobby_join)
 
 LOBBY_HANDLER_MAP = ds_map_create()
 ds_map_add(LOBBY_HANDLER_MAP, "join",				lobby_handle_join)
