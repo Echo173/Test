@@ -182,10 +182,10 @@ switch (gamestate) {
 		break;
 		
 	case GAMESTATE.COMBAT:
-		if (instance_number(obj_player) <= 1) {
-			room_transition(rm_upgrade);
-			gamestate = GAMESTATE.COMBAT_EXIT
-		}
+		//if (instance_number(obj_player) <= 1) {
+		//	room_transition(rm_upgrade);
+		//	gamestate = GAMESTATE.COMBAT_EXIT
+		//}
 		break;
 		
 	case GAMESTATE.COMBAT_EXIT:
