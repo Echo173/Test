@@ -12,7 +12,7 @@ switch(async_load[? "type"])
 		
 		// Switch instruction
 		switch(cmd) {
-			case 0: // Ping
+			case INSTRUCTIONS.PING:
 				// Calculate ping
 				CLIENT_MAP[? "ping"] = current_time - __current_ping_time
 			
@@ -22,7 +22,7 @@ switch(async_load[? "type"])
 				obj_chat.chat("[yellow]ping: [white]" + string(CLIENT_MAP[? "ping"]) + "ms")
 			break
 			
-			case 1: // Client info
+			case INSTRUCTIONS.CLIENT_INFO:
 				// Check connection status
 				if connection != CONNECTION_MAP[? "connected"] {
 					// Update connection
@@ -51,7 +51,7 @@ switch(async_load[? "type"])
 				}
 			break
 			
-			case 2: // Change username
+			case INSTRUCTIONS.CHANGE_USERNAME:
 				var successful = buffer_read(buff, buffer_bool)
 				
 				if successful {
@@ -63,7 +63,7 @@ switch(async_load[? "type"])
 				}
 			break
 			
-			case 3: // Create lobby
+			case INSTRUCTIONS.CREATE_LOBBY:
 				var successful = buffer_read(buff, buffer_bool)
 				
 				if successful {
@@ -75,7 +75,7 @@ switch(async_load[? "type"])
 				}
 			break
 			
-			case 4: // Lobby update
+			case INSTRUCTIONS.LOBBY_UPDATE:
 				var lobby_data = json_parse(buffer_read(buff, buffer_string))
 				LOBBY_MAP[? "id"]			= lobby_data.id
 				LOBBY_MAP[? "name"]			= lobby_data.name
@@ -121,7 +121,7 @@ switch(async_load[? "type"])
 				}
 			break
 			
-			case 5: // Leave
+			case INSTRUCTIONS.LEAVE:
 				var successful = buffer_read(buff, buffer_bool)
 				
 				if successful {
@@ -132,7 +132,7 @@ switch(async_load[? "type"])
 				}
 			break
 			
-			case 6: // Join
+			case INSTRUCTIONS.JOIN:
 				var successful = buffer_read(buff, buffer_bool)
 				
 				if successful {
@@ -143,8 +143,19 @@ switch(async_load[? "type"])
 				}
 			break
 			
-			case 11: // Data
+			case INSTRUCTIONS.DATA:
 				script_execute(LOBBY_HANDLER_MAP[? "data"], (CLIENT_MAP[? "uuid"] == LOBBY_MAP[? "host"]), buff)
+			break
+			
+			case INSTRUCTIONS.START:
+				var successful = buffer_read(buff, buffer_bool)
+				
+				if successful {
+					// Not send by server
+				} else {
+					var error_code = buffer_read(buff, buffer_u8)
+					obj_chat.chat("[red]"+string(ERROR_MAP[? "create"][error_code]))
+				}
 			break
 		}
 	break

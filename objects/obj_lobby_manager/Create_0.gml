@@ -4,6 +4,12 @@ lobby_init = false
 trigger_game_start = false
 trigger_game_start_init = 0
 
+globalvar user_index;
+user_index = -1
+
+globalvar lobby_size;
+lobby_size = 0;
+
 globalvar rounds_to_win;
 rounds_to_win = 3;
 
@@ -13,26 +19,29 @@ upgrade_time_limit = 5 //In seconds
 globalvar arena_selected;
 arena_selected = rm_arena_1
 
+new_player_queue = ds_queue_create(); //This may be redundant, pls remove if its unnecessary and just call add_player_to_lobby() instead
+
 //Init player data variable
 globalvar player_data;
 
 enum PDATA {
-	COLOR_INDEX = 1,		// The index (1 through 10) of the players selected color
-	HEAD_INDEX = 2,			// The index of the players selected head type (just 1 exists right now)
-	USERNAME = 3,			// Players Username
-	SPELL = 4,				// Current Spell equiped --------- everything below this doesn't get used until players are in the game
-	MODS = 5,				// List of Mods equiped
-	GEAR = 6,				// List of gear equiped
-	DAMAGE = 7,				// Total damage the player has delt this game
-	KILLS = 8,				// Total kills the player has gotten this game
-	TIME_ALIVE = 9,			// Total time the player has been alive this game
-	UPGRADE_SELECTED = 10,	// Keeps track of if the player has selected an upgrade yet
+	CONNECTED = 0, //Boolean of if the player is still connected to this lobby
+	COLOR_INDEX = 1, //The index (1 through 10) of the players selected color
+	HEAD_INDEX = 2, //The index of the players selected head type (just 1 exists right now)
+	USERNAME = 3, //Players Username
+	SPELL = 4, //Current Spell equiped --------- everything below this doesn't get used until players are in the game
+	MODS = 5, //List of Mods equiped
+	GEAR = 6, //List of gear equiped
+	DAMAGE = 7, //Total damage the player has delt this game
+	KILLS = 8, //Total kills the player has gotten this game
+	TIME_ALIVE = 9, //Total time the player has been alive this game
+	UPGRADE_SELECTED = 10, //Keeps track of if the player has selected an upgrade yet
 }
 
 character_id[1] = noone
 
 //Player Joins
-function add_player_to_lobby(uuid) {
+function add_player_to_lobby(_user_index) {
 	
 	//Find a Free Color
 	for (var ii = 1; ii <= 10; ii += 1) {

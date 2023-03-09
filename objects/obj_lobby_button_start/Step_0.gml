@@ -6,6 +6,7 @@ if (instance_position(mouse_x,mouse_y,id)) {
 	if (mouse_check_button_pressed(mb_left)) {
 		//Leave Lobby
 		//[NET] Brodcast that the game is starting
+		obj_client.start_lobby()
 		obj_lobby_manager.trigger_game_start = true
 	}
 }

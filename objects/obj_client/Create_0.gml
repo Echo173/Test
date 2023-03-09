@@ -20,18 +20,21 @@ ds_map_add(CONNECTION_MAP, "connecting",			2)
 ds_map_add(CONNECTION_MAP, "connection failed",		3)
 ds_map_add(CONNECTION_MAP, "disconnected",			4)
 
-INSTRUCTION_MAP = ds_map_create()
-ds_map_add(INSTRUCTION_MAP, "ping",					0)
-ds_map_add(INSTRUCTION_MAP, "client_info",			1)
-ds_map_add(INSTRUCTION_MAP, "change_username",		2)
-ds_map_add(INSTRUCTION_MAP, "create_lobby",			3)
-ds_map_add(INSTRUCTION_MAP, "leave",				5)
-ds_map_add(INSTRUCTION_MAP, "join",					6)
-ds_map_add(INSTRUCTION_MAP, "kick",					7)
-ds_map_add(INSTRUCTION_MAP, "kicked",				8)		
-ds_map_add(INSTRUCTION_MAP, "lobby_list",           9)
-ds_map_add(INSTRUCTION_MAP, "closed",               10)
-ds_map_add(INSTRUCTION_MAP, "data",					11)
+enum INSTRUCTIONS {
+	PING			= 0,
+	CLIENT_INFO		= 1,
+	CHANGE_USERNAME = 2,
+	CREATE_LOBBY	= 3,
+	LOBBY_UPDATE	= 4,
+	LEAVE			= 5,
+	JOIN			= 6,
+	KICK			= 7,
+	KICKED			= 8,
+	LOBBY_LIST		= 9,
+	CLOSED			= 10,
+	DATA			= 11,
+	START			= 12
+}
 
 LOBBY_MAP = ds_map_create()
 function init_lobby_map() {
@@ -50,6 +53,7 @@ ds_map_add(ERROR_MAP, "change_username",			["Username include special characters
 ds_map_add(ERROR_MAP, "create_lobby",               ["Name include special characters", "Name length is invalid", "Password length is invalid", "Can't create new lobby inside lobby"])
 ds_map_add(ERROR_MAP, "join_lobby",					["Can't join lobby in a lobby", "Lobby not found", "Wrong password", "Lobby full"])
 ds_map_add(ERROR_MAP, "leave",						["Not in a lobby"])
+ds_map_add(ERROR_MAP, "create",						["Not in a lobby", "Not host", "Not enough players to start the game"])
 
 WAGE_HANDLER_MAP = ds_map_create()
 ds_map_add(WAGE_HANDLER_MAP, "connect",				wage_handle_connect)
@@ -114,7 +118,7 @@ function refresh_server_ping() {
 	var buff = buffer_create(1, buffer_grow, 1)
 	
 	// Write instruction to buffer
-	buffer_write(buff, buffer_u8, INSTRUCTION_MAP[? "ping"])
+	buffer_write(buff, buffer_u8, INSTRUCTIONS.PING)
 	
 	// Send buffer
 	network_send_raw(sock, buff, buffer_get_size(buff))
@@ -128,14 +132,14 @@ function refresh_server_ping() {
 
 function change_username(username="") {
 	var buff = buffer_create(1, buffer_grow, 1)
-	buffer_write(buff, buffer_u8, INSTRUCTION_MAP[? "change_username"])
+	buffer_write(buff, buffer_u8, INSTRUCTIONS.CHANGE_USERNAME)
 	buffer_write(buff, buffer_string, username)
 	network_send_raw(sock, buff, buffer_get_size(buff))
 }
 
 function create_lobby(name="", password="") {
 	var buff = buffer_create(1, buffer_grow, 1)
-	buffer_write(buff, buffer_u8, INSTRUCTION_MAP[? "create_lobby"])
+	buffer_write(buff, buffer_u8, INSTRUCTIONS.CREATE_LOBBY)
 	buffer_write(buff, buffer_string, name)
 	buffer_write(buff, buffer_string, password)
 	network_send_raw(sock, buff, buffer_get_size(buff))
@@ -143,7 +147,7 @@ function create_lobby(name="", password="") {
 
 function join_lobby(lobby_id="", lobby_password="") {
 	var buff = buffer_create(1, buffer_grow, 1)
-	buffer_write(buff, buffer_u8, INSTRUCTION_MAP[? "join"])
+	buffer_write(buff, buffer_u8, INSTRUCTIONS.JOIN)
 	buffer_write(buff, buffer_string, lobby_id)
 	buffer_write(buff, buffer_string, lobby_password)
 	network_send_raw(sock, buff, buffer_get_size(buff))
@@ -151,18 +155,24 @@ function join_lobby(lobby_id="", lobby_password="") {
 
 function leave_lobby() {
 	var buff = buffer_create(1, buffer_grow, 1)
-	buffer_write(buff, buffer_u8, INSTRUCTION_MAP[? "leave"])
+	buffer_write(buff, buffer_u8, INSTRUCTIONS.LEAVE)
 	network_send_raw(sock, buff, buffer_get_size(buff))
 }
 
 function send_data(instruction, json_data, uuid) {
 	var buff = buffer_create(1, buffer_grow, 1)
-	buffer_write(buff, buffer_u8, INSTRUCTION_MAP[? "data"])
+	buffer_write(buff, buffer_u8, INSTRUCTIONS.DATA)
 	var data_map = ds_map_create()
 	ds_map_add(data_map, "destination", uuid)
 	ds_map_add(data_map, "instruction", instruction)
 	ds_map_add(data_map, "data",		json_data)
 	buffer_write(buff, buffer_string, json_encode(data_map))
+	network_send_raw(sock, buff, buffer_get_size(buff))
+}
+
+function start_lobby() {
+	var buff = buffer_create(1, buffer_grow, 1)
+	buffer_write(buff, buffer_u8, INSTRUCTIONS.START)
 	network_send_raw(sock, buff, buffer_get_size(buff))
 }
 
