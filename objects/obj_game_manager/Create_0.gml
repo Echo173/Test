@@ -12,21 +12,12 @@ enum GAMESTATE {
 }
 
 globalvar gamestate;
-gamestate = GAMESTATE.INIT
+gamestate = GAMESTATE.COMBAT
 
 globalvar reroll_count;
 reroll_count = 3
 
 spawn_offset = 0
-
-//Init player Upgrade vars
-for (var ii = 1; ii <= lobby_size; ii += 1) {
-	player_data[ii, PDATA.SPELL] = 0
-	player_data[ii, PDATA.MODS] = ds_list_create();
-	player_data[ii, PDATA.GEAR] = ds_list_create();
-
-	player_data[ii, PDATA.UPGRADE_SELECTED] = false
-}
 
 //TESTING CODE
 //ds_list_add(player_data[user_index, PDATA.MODS],irandom(2))
@@ -44,7 +35,6 @@ upgrade_state_init = 0
 
 upgrade_create_upgrades_init = 0
 
-upgrade_timer_seconds_max = upgrade_time_limit
 upgrade_timer_seconds = 0
 upgrade_timer = 0
 upgrade_timer_end_init = 0

@@ -33,7 +33,8 @@ enum INSTRUCTIONS {
 	LOBBY_LIST		= 9,
 	CLOSED			= 10,
 	DATA			= 11,
-	START			= 12
+	START			= 12,
+	CUSTOM_DATA		= 13
 }
 
 LOBBY_MAP = ds_map_create()
@@ -69,6 +70,7 @@ ds_map_add(LOBBY_HANDLER_MAP, "left",				lobby_handle_left)
 ds_map_add(LOBBY_HANDLER_MAP, "lost",				lobby_handle_lost)
 ds_map_add(LOBBY_HANDLER_MAP, "kick",				lobby_handle_kick)
 ds_map_add(LOBBY_HANDLER_MAP, "data",               lobby_handle_data)
+ds_map_add(LOBBY_HANDLER_MAP, "tick",				lobby_handle_tick)
 
 // ----- User data -----
 	
@@ -80,6 +82,7 @@ __refresh_ping_time		= 5         	// Time to refresh ping to server (in seconds)
 __current_ping_time		= 0				// Current calculated ping time
 __packet_timeout		= 20        	// Timer for calculating timeout (in seconds)
 __connect_timeout		= 8				// Time for connecting to server (in seconds)
+__server_tick			= 5				// Server tick speed
 
 // ----- Functions -----
 
@@ -179,3 +182,5 @@ function start_lobby() {
 
 // Connect to server
 connect()
+
+alarm[3] = 1

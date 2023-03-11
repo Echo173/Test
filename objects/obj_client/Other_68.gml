@@ -68,7 +68,6 @@ switch(async_load[? "type"])
 				
 				if successful {
 					obj_chat.chat("[lime]lobby created successfully")
-					script_execute(WAGE_HANDLER_MAP[? "lobby join"])
 				} else {
 					var error_code = buffer_read(buff, buffer_u8)
 					obj_chat.chat("[red]"+string(ERROR_MAP[? "create_lobby"][error_code]))
@@ -76,49 +75,67 @@ switch(async_load[? "type"])
 			break
 			
 			case INSTRUCTIONS.LOBBY_UPDATE:
-				var lobby_data = json_parse(buffer_read(buff, buffer_string))
-				LOBBY_MAP[? "id"]			= lobby_data.id
-				LOBBY_MAP[? "name"]			= lobby_data.name
-				LOBBY_MAP[? "private"]		= lobby_data.private
-				LOBBY_MAP[? "cur_players"]	= lobby_data.players_count
-				LOBBY_MAP[? "max_players"]	= lobby_data.max_players
-				LOBBY_MAP[? "in_game"]		= lobby_data.status
-				LOBBY_MAP[? "host"]			= lobby_data.host
+				if LOBBY_MAP[? "id"] != "" {
+					var lobby_data = json_parse(buffer_read(buff, buffer_string))
+					LOBBY_MAP[? "id"]			= lobby_data.id
+					LOBBY_MAP[? "name"]			= lobby_data.name
+					LOBBY_MAP[? "private"]		= lobby_data.private
+					LOBBY_MAP[? "cur_players"]	= lobby_data.players_count
+					LOBBY_MAP[? "max_players"]	= lobby_data.max_players
+					LOBBY_MAP[? "in_game"]		= lobby_data.status
+					LOBBY_MAP[? "host"]			= lobby_data.host
 				
-				obj_chat.chat("[yellow]ID: [white]" + string(LOBBY_MAP[? "id"]))
-				obj_chat.chat("[yellow]ID Copied to clipboard")
-				clipboard_set_text(LOBBY_MAP[? "id"])
-				
-				var player_data = json_parse(lobby_data.players)
-				lobby_users = []
+					var player_data = json_parse(lobby_data.players)
+					lobby_users = []
 
-				for(var i=0;i<array_length(player_data);i++) {
-					print(player_data[i])
-					lobby_users[i] = player_data[i]
+					for(var i=0;i<array_length(player_data);i++) {
+						lobby_users[i] = player_data[i]
 					
-					switch(lobby_users[i].state) {
-						case "static":
-							// Noting to update
-						break
+						if lobby_users[i].UUID != CLIENT_MAP[? "uuid"] {
+							switch(lobby_users[i].state) {
+								case "static":
+									// Noting to update
+								break
 						
-						case "join":
-							script_execute(LOBBY_HANDLER_MAP[? "join"], (CLIENT_MAP[? "uuid"] == LOBBY_MAP[? "host"]), i)
-						break	
+								case "join":
+									script_execute(LOBBY_HANDLER_MAP[? "join"], (CLIENT_MAP[? "uuid"] == LOBBY_MAP[? "host"]), i)
+								break	
 					
-						case "left":
-							script_execute(LOBBY_HANDLER_MAP[? "left"], (CLIENT_MAP[? "uuid"] == LOBBY_MAP[? "host"]), i)
-						break
+								case "left":
+									script_execute(LOBBY_HANDLER_MAP[? "left"], (CLIENT_MAP[? "uuid"] == LOBBY_MAP[? "host"]), i)
+								break
 						
-						case "kick":
-							script_execute(LOBBY_HANDLER_MAP[? "kick"], (CLIENT_MAP[? "uuid"] == LOBBY_MAP[? "host"]), i)
-						break
+								case "kick":
+									script_execute(LOBBY_HANDLER_MAP[? "kick"], (CLIENT_MAP[? "uuid"] == LOBBY_MAP[? "host"]), i)
+								break
 						
-						case "lost":
-							script_execute(LOBBY_HANDLER_MAP[? "lost"], (CLIENT_MAP[? "uuid"] == LOBBY_MAP[? "host"]), i)
-						break
-						
+								case "lost":
+									script_execute(LOBBY_HANDLER_MAP[? "lost"], (CLIENT_MAP[? "uuid"] == LOBBY_MAP[? "host"]), i)
+								break
+							}
+						}
+					} 
+				} else {
+						var lobby_data = json_parse(buffer_read(buff, buffer_string))
+						LOBBY_MAP[? "id"]			= lobby_data.id
+						LOBBY_MAP[? "name"]			= lobby_data.name
+						LOBBY_MAP[? "private"]		= lobby_data.private
+						LOBBY_MAP[? "cur_players"]	= lobby_data.players_count
+						LOBBY_MAP[? "max_players"]	= lobby_data.max_players
+						LOBBY_MAP[? "in_game"]		= lobby_data.status
+						LOBBY_MAP[? "host"]			= lobby_data.host
+				
+						clipboard_set_text(LOBBY_MAP[? "id"])
+				
+						var player_data = json_parse(lobby_data.players)
+						lobby_users = []
+
+						for(var i=0;i<array_length(player_data);i++) {
+							lobby_users[i] = player_data[i]
+						}
+			
+						script_execute(WAGE_HANDLER_MAP[? "lobby join"])
 					}
-				}
 			break
 			
 			case INSTRUCTIONS.LEAVE:
@@ -136,11 +153,19 @@ switch(async_load[? "type"])
 				var successful = buffer_read(buff, buffer_bool)
 				
 				if successful {
-					script_execute(WAGE_HANDLER_MAP[? "lobby join"])
+					// script_execute(WAGE_HANDLER_MAP[? "lobby join"])
 				} else {
 					var error_code = buffer_read(buff, buffer_u8)
 					obj_chat.chat("[red]"+string(ERROR_MAP[? "join_lobby"][error_code]))
 				}
+			break
+			
+			case INSTRUCTIONS.KICKED:
+				var reason = buffer_read(buff, buffer_string)
+				
+				obj_chat.chat(string("[yellow]Kicked {0}", reason))
+				
+				room_goto(rm_main_menu)
 			break
 			
 			case INSTRUCTIONS.DATA:

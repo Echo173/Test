@@ -4,7 +4,8 @@ if (instance_position(mouse_x,mouse_y,id)) {
 	
 	//If this button is clicked
 	if (mouse_check_button_pressed(mb_left)) {
-		obj_client.create_lobby("LobbyTest", "")	
+		obj_client.create_lobby("LobbyTest", "")
+		room_goto(rm_lobby)
 	}
 }
 else
