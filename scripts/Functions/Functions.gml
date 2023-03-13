@@ -144,3 +144,12 @@ function buffer_prettyprint(_buf, _per_row = 20) {
     buffer_seek(_out, buffer_seek_start, 0);
     show_debug_message(buffer_read(_out, buffer_text))
 }
+
+//Map key exists
+function ds_map_key_exists(map, key) {
+	try {
+		return(array_contains(ds_map_keys_to_array(map), key))
+	} catch (e) {
+		return(false)	
+	}
+}

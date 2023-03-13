@@ -12,6 +12,7 @@ enum ANIMSTATE {
 	FAST = 2,
 }
 
+uuid = obj_client.CLIENT_MAP[? "uuid"]
 animstate = ANIMSTATE.STOP
 animstate_change_timer = 0
 

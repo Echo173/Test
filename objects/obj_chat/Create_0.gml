@@ -67,3 +67,16 @@ function chat(msg="") {
 
 chat("[red]I added error handling. Joining lobbies works and creating lobbies, but because server is offline you can't go to lobby menu! Because game can't create lobbies on server due to offline")
 chat("[white]To go to lobby menu press [crazy_color]F2")
+
+/*
+var uuid = "f23f-35fg23t-t32t32g-22g"
+var instruction = 0
+var json_data = {"x": 4321, "y": 213, "id": 321}
+var json_data2 = {"x": 26541, "y": 2123, "id": 21}
+var data_list = ds_list_create()
+var DATA = ds_map_create()
+ds_list_add(data_list, [instruction, json_data])
+ds_list_add(data_list, [instruction, json_data2])
+ds_map_add_list(DATA, uuid, data_list)
+print(json_encode(DATA, true))
+*/

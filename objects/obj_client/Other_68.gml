@@ -20,6 +20,7 @@ switch(async_load[? "type"])
 				alarm[0] = __refresh_ping_time * room_speed
 				
 				obj_chat.chat("[black]ping: [white]" + string(CLIENT_MAP[? "ping"]) + "ms")
+				print("-ping")
 			break
 			
 			case INSTRUCTIONS.CLIENT_INFO:

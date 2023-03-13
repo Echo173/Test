@@ -2,7 +2,7 @@
 
 // ----- Network -----
 
-wage = "MTI3LjAuMC4xOjg4ODg="
+wage = "Mi50Y3AuZXUubmdyb2suaW86MTkxMDc="
 sock = network_create_socket(network_socket_tcp)
 
 // ----- Data maps -----
@@ -71,6 +71,8 @@ ds_map_add(LOBBY_HANDLER_MAP, "lost",				lobby_handle_lost)
 ds_map_add(LOBBY_HANDLER_MAP, "kick",				lobby_handle_kick)
 ds_map_add(LOBBY_HANDLER_MAP, "data",               lobby_handle_data)
 ds_map_add(LOBBY_HANDLER_MAP, "tick",				lobby_handle_tick)
+
+DATA = ds_map_create()
 
 // ----- User data -----
 	
@@ -163,8 +165,8 @@ function leave_lobby() {
 	network_send_raw(sock, buff, buffer_get_size(buff))
 }
 
-function send_data(instruction, json_data, uuid) {
-	var buff = buffer_create(1, buffer_grow, 1)
+function send_data(json_data, uuid) {
+	/*var buff = buffer_create(1, buffer_grow, 1)
 	buffer_write(buff, buffer_u8, INSTRUCTIONS.DATA)
 	var data_map = ds_map_create()
 	ds_map_add(data_map, "destination", uuid)
@@ -172,6 +174,17 @@ function send_data(instruction, json_data, uuid) {
 	ds_map_add(data_map, "data",		json_data)
 	buffer_write(buff, buffer_string, json_encode(data_map))
 	network_send_raw(sock, buff, buffer_get_size(buff))
+	*/
+	if ds_map_key_exists(DATA, uuid) {
+		var data_array = DATA[? uuid]
+		ds_list_add(data_array, json_data)
+		ds_map_delete(DATA, uuid)
+		ds_map_add_list(DATA, uuid, data_array)
+	} else {
+		var data_array = ds_list_create()
+		ds_list_add(data_array, json_data)
+		ds_map_add_list(DATA, uuid, data_array)
+	}
 }
 
 function start_lobby() {

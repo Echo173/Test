@@ -7,15 +7,10 @@
 if connection != CONNECTION_MAP[? "disconnected"] {
 	// Update connection
 	connection = CONNECTION_MAP[? "connection lost"]
-
-	// Set in_lobby to false
-	// in_lobby = false
 	
-	// Set host to false
-	// LOBBY_DATA[? "host"] = false
-
 	// Destroy socket
 	network_destroy(sock)
 	
-	obj_chat.chat("[yellow]connection lost")
+	// Execute script
+	script_execute(WAGE_HANDLER_MAP[? "connection lost"])
 }
